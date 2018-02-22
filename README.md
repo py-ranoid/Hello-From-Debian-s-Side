@@ -38,6 +38,7 @@ Reference : https://nikolak.com/pyqt-qt-designer-getting-started/
 - Open QtDesigner and design the Dialer.
 - Save the UI as `designui.ui`
 - Convert UI to Python script
-
-
-	pyuic4 designui.ui -o design.py
+	` pyuic4 designui.ui -o design.py`
+	
+	
+![](https://py-ranoid.github.io/Hello-From-The-Debian-Side/Images/Screenshot%20from%202018-02-22%2010-50-21.png) 
