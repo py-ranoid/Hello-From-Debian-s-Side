@@ -1,3 +1,5 @@
+# Setup
+
 ## Installing SIP
 Download from here : https://riverbankcomputing.com/software/sip/download
 Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.html
@@ -27,7 +29,7 @@ Make and install
 	make
 	make install
 
-# Installing QtDesigner
+## Installing QtDesigner
 	$ apt-get install python-qt4 pyqt4-dev-tools qt4-designer
 Reference : https://nikolak.com/pyqt-qt-designer-getting-started/
 
@@ -39,5 +41,3 @@ Reference : https://nikolak.com/pyqt-qt-designer-getting-started/
 
 
 	pyuic4 designui.ui -o design.py
-
-	
