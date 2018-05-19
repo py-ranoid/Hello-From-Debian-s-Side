@@ -100,4 +100,4 @@ Hence the required XML file for
 	</mime-type>
 	</mime-info>
 
-	> xdg-mime install shinythings-shiny.xml
+	> xdg-mime install debdialer-tel.xml
