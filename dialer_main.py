@@ -3,6 +3,10 @@ import sys
 from functools import partial
 from design2 import Ui_Dialog, _translate
 import argparse
+from phonenumbers import parse
+from fetch_details import get_timezone, get_carrier, formatNum
+from pytz import timezone
+from datetime import datetime
 
 
 class DialerApp(QtGui.QDialog, Ui_Dialog):
@@ -19,6 +23,8 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
 
+        self.object_map["FetchDetails"].clicked.connect(self.setDetails)
+
     def objectMapSetup(self):
         self.btn_list = [self.pushButton_12,  # 0
                          self.pushButton, self.pushButton_2, self.pushButton_3,  # 123
@@ -28,16 +34,42 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
 
         self.object_map = {"NumTextBox": self.plainTextEdit,
                            "NumButtons": self.btn_list,
+                           "Location": self.label,
+                           "Carrier": self.label_2,
+                           "Timezone": self.label_3,
+                           "FetchDetails": self.pushButton_15
                            }
 
     def getDialerNumber(self):
-        return self.object_map["NumTextBox"].toPlainText().strip()
+        return str(self.object_map["NumTextBox"].toPlainText()).strip()
 
     def setDialerNumber(self, x):
         self.object_map["NumTextBox"].setPlainText(x)
 
     def click_action(self, x):
         self.object_map["NumTextBox"].insertPlainText(x)
+
+    def setDetails(self):
+        x = parse(self.getDialerNumber())
+        self.setTimezone(x)
+        self.setCarrier(x)
+
+        formatted = formatNum(x)
+        self.setDialerNumber(formatted)
+
+    def setLocation(self, pnum):
+        num = self.getDialerNumber()
+
+    def setCarrier(self, pnum):
+        carr = get_carrier(pnum)
+        self.object_map["Carrier"].setText('Carrier : ' + carr)
+
+    def setTimezone(self, pnum):
+        tz = get_timezone(pnum)
+        utcdelta = pytz.timezone(tz).utcoffset(datetime.datetime.now())
+        utcoff = str(float(utcdelta.seconds) / 3600)
+        self.object_map["Timezone"].setText(
+            'Timezone : ' + tz[0] + " | " + utcoff)
 
 
 def main(num):
