@@ -65,11 +65,11 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map["Carrier"].setText('Carrier : ' + carr)
 
     def setTimezone(self, pnum):
-        tz = get_timezone(pnum)
-        utcdelta = pytz.timezone(tz).utcoffset(datetime.datetime.now())
+        tz = get_timezone(pnum)[0]
+        utcdelta = timezone(tz).utcoffset(datetime.now())
         utcoff = str(float(utcdelta.seconds) / 3600)
         self.object_map["Timezone"].setText(
-            'Timezone : ' + tz[0] + " | " + utcoff)
+            'Timezone : ' + tz + " | UTC+" + utcoff)
 
 
 def main(num):
