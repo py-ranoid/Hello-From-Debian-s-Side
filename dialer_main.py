@@ -1,11 +1,11 @@
 from PyQt4 import QtGui  # Import the PyQt4 module we'll need
 import sys  # We need sys so that we can pass argv to QApplication
 from functools import partial
-import design2  # This file holds our MainWindow and all design related things
+import dialer_mid  # This file holds our MainWindow and all design related things
 # it also keeps events etc that we defined in Qt Designer
 
 
-class ExampleApp(QtGui.QDialog, design2.Ui_Dialog):
+class ExampleApp(QtGui.QDialog, dialer_mid.Ui_Dialog_child):
     def __init__(self):
         # Explaining super is out of the scope of this article
         # So please google it if you're not familar with it
