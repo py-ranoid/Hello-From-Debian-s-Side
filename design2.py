@@ -162,7 +162,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Dialer", None))
         self.plainTextEdit.setPlainText(
-            _translate("Dialog", "  +91 9176119388", None))
+            _translate("Dialog", "+91 9176119388", None))
         self.pushButton.setText(_translate("Dialog", "1", None))
         self.pushButton_2.setText(_translate("Dialog", "2 | abc", None))
         self.pushButton_3.setText(_translate("Dialog", "3  | def", None))

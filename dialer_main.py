@@ -1,11 +1,12 @@
 from PyQt4 import QtGui  # Import the PyQt4 module we'll need
 import sys  # We need sys so that we can pass argv to QApplication
 from functools import partial
-import dialer_mid  # This file holds our MainWindow and all design related things
+from design2 import Ui_Dialog, _translate
+# This file holds our MainWindow and all design related things
 # it also keeps events etc that we defined in Qt Designer
 
 
-class ExampleApp(QtGui.QDialog, dialer_mid.Ui_Dialog_child):
+class ExampleApp(QtGui.QDialog, Ui_Dialog):
     def __init__(self):
         # Explaining super is out of the scope of this article
         # So please google it if you're not familar with it
@@ -15,6 +16,31 @@ class ExampleApp(QtGui.QDialog, dialer_mid.Ui_Dialog_child):
         self.setupUi(self)
         # This is defined in design.py file automatically
         # It sets up layout and widgets that are defined
+        self.plainTextEdit.setPlainText(
+            _translate("Dialog", "  +91 9119388", None))
+
+        self.btn_list = [self.pushButton_12,  # 0
+                         self.pushButton, self.pushButton_2, self.pushButton_3,  # 123
+                         self.pushButton_4, self.pushButton_5, self.pushButton_6,  # 456
+                         self.pushButton_7, self.pushButton_8, self.pushButton_9,  # 789
+                         self.pushButton_11, self.pushButton_10]  # *#
+        num_list = map(str, range(0, 10)) + ['*', '#']
+
+        for val, bt in zip(num_list, self.btn_list):
+            bt.clicked.connect(partial(self.click_action, val))
+
+        self.object_map = {"NumTextBox": self.plainTextEdit,
+                           "NumButtons": self.btn_list,
+                           }
+
+    def getDialerNumber(self):
+        return self.object_map["NumTextBox"].toPlainText().strip()
+
+    def setDialerNumber(self, x):
+        self.object_map["NumTextBox"].setPlainText(x)
+
+    def click_action(self, x):
+        self.object_map["NumTextBox"].insertPlainText(x)
 
 
 def main():

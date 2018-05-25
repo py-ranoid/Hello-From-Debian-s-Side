@@ -8,6 +8,7 @@
 """
 
 from design2 import Ui_Dialog, _translate
+from functools import partial
 
 
 class Ui_Dialog_child(Ui_Dialog):
@@ -18,19 +19,20 @@ class Ui_Dialog_child(Ui_Dialog):
         # print super(Ui_Dialog_child, self).plainTextEdit
         super(Ui_Dialog_child, self).setupUi(arg)
         # print super(Ui_Dialog_child, self).plainTextEdit
-        self.plainTextEdit.setPlainText(
-            _translate("Dialog", "  +91 9119388", None))
+        # self.plainTextEdit.setPlainText(
+        #     _translate("Dialog", "  +91 9119388", None))
 
         # okbt = self.buttonBox.button(QtGui.QDialogButtonBox.Ok)
         # okbt.clicked.connect(self.ok_function)
+
         self.btn_list = [self.pushButton_12,  # 0
                          self.pushButton, self.pushButton_2, self.pushButton_3,  # 123
                          self.pushButton_4, self.pushButton_5, self.pushButton_6,  # 456
                          self.pushButton_7, self.pushButton_8, self.pushButton_9,  # 789
-                         self.pushButton_10, , self.pushButton_11]  # *#
+                         self.pushButton_10, self.pushButton_11]  # *#
         num_list = map(str, range(0, 10)) + ['*', '#']
 
-        for val, bt in zip(num_list, btn_list):
+        for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
 
         self.object_map = {"NumTextBox": self.plainTextEdit,
