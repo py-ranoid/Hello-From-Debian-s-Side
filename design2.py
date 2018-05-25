@@ -177,13 +177,13 @@ class Ui_Dialog(object):
         self.pushButton_12.setText(_translate("Dialog", "0 | +", None))
         self.pushButton_14.setText(_translate("Dialog", "Open Contact", None))
         self.pushButton_15.setText(_translate(
-            "Dialog", "CALL with pjsua", None))
+            "Dialog", "Fetch Details", None))
         self.pushButton_16.setText(_translate(
             "Dialog", "Add to Contacts", None))
-        self.label.setText(_translate("Dialog", "Location : India", None))
-        self.label_2.setText(_translate("Dialog", "Carrier : Vodafone", None))
+        self.label.setText(_translate("Dialog", "Location : ", None))
+        self.label_2.setText(_translate("Dialog", "Carrier : ", None))
         self.label_3.setText(_translate(
-            "Dialog", "Timezone : Asia/Kolkata | UTC + 05:30", None))
+            "Dialog", "Timezone : ", None))
         self.pushButton_17.setText(_translate(
             "Dialog", "SEND TO ANDROID PHONE", None))
         self.pushButton_18.setText(_translate(
