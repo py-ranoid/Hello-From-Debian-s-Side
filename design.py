@@ -41,39 +41,51 @@ class Ui_Dialog(object):
         self.plainTextEdit.setFont(font)
         self.plainTextEdit.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
+
         self.pushButton = QtGui.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(10, 70, 51, 41))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
+
         self.pushButton_2 = QtGui.QPushButton(Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(90, 70, 51, 41))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+
         self.pushButton_3 = QtGui.QPushButton(Dialog)
         self.pushButton_3.setGeometry(QtCore.QRect(170, 70, 51, 41))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+
         self.pushButton_4 = QtGui.QPushButton(Dialog)
         self.pushButton_4.setGeometry(QtCore.QRect(90, 120, 51, 41))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
+
         self.pushButton_5 = QtGui.QPushButton(Dialog)
         self.pushButton_5.setGeometry(QtCore.QRect(170, 120, 51, 41))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
+
         self.pushButton_6 = QtGui.QPushButton(Dialog)
         self.pushButton_6.setGeometry(QtCore.QRect(10, 120, 51, 41))
         self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
+
         self.pushButton_7 = QtGui.QPushButton(Dialog)
         self.pushButton_7.setGeometry(QtCore.QRect(10, 170, 51, 41))
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
+
         self.pushButton_8 = QtGui.QPushButton(Dialog)
         self.pushButton_8.setGeometry(QtCore.QRect(90, 170, 51, 41))
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
+
         self.pushButton_9 = QtGui.QPushButton(Dialog)
         self.pushButton_9.setGeometry(QtCore.QRect(170, 170, 51, 41))
         self.pushButton_9.setObjectName(_fromUtf8("pushButton_9"))
+
         self.pushButton_10 = QtGui.QPushButton(Dialog)
         self.pushButton_10.setGeometry(QtCore.QRect(170, 220, 51, 41))
         self.pushButton_10.setObjectName(_fromUtf8("pushButton_10"))
+
         self.pushButton_11 = QtGui.QPushButton(Dialog)
         self.pushButton_11.setGeometry(QtCore.QRect(10, 220, 51, 41))
         self.pushButton_11.setObjectName(_fromUtf8("pushButton_11"))
+
         self.pushButton_12 = QtGui.QPushButton(Dialog)
         self.pushButton_12.setGeometry(QtCore.QRect(90, 220, 51, 41))
         self.pushButton_12.setObjectName(_fromUtf8("pushButton_12"))
@@ -91,6 +103,7 @@ class Ui_Dialog(object):
                        self.pushButton_7, self.pushButton_8, self.pushButton_9, self.pushButton_10, self.pushButton_11, self.pushButton_12]
         num_list = map(str, range(1, 10)) + ['*', '0', '#']
         for val, bt in zip(num_list, button_list):
+            21
             bt.clicked.connect(partial(self.click_action, val))
 
     def ok_function(self):
