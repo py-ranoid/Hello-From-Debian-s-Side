@@ -103,7 +103,6 @@ class Ui_Dialog(object):
                        self.pushButton_7, self.pushButton_8, self.pushButton_9, self.pushButton_10, self.pushButton_11, self.pushButton_12]
         num_list = map(str, range(1, 10)) + ['*', '0', '#']
         for val, bt in zip(num_list, button_list):
-            21
             bt.clicked.connect(partial(self.click_action, val))
 
     def ok_function(self):
