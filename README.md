@@ -101,3 +101,6 @@ Hence the required XML file for
 	</mime-info>
 
 	> xdg-mime install shinythings-shiny.xml
+### Testing the MIME URI
+- `xdg-mime query default x-scheme-handler/mailto`
+- `xdg-open mailto:vishstar88@gmail.com`
