@@ -1,3 +1,4 @@
+Note : Find project scrum board [here](https://storm.debian.net/grain/bD3aJdnYLBWo5R3K6GWckn/b/sandstorm/libreboard)
 # Setup
 
 ## Installing SIP
@@ -41,7 +42,7 @@ Reference : https://nikolak.com/pyqt-qt-designer-getting-started/
 	` pyuic4 designui.ui -o design.py`
 
 
-![](https://py-ranoid.github.io/Hello-From-The-Debian-Side/Images/Screenshot from 2018-03-27 13-12-38.png) 
+![](https://py-ranoid.github.io/Hello-From-The-Debian-Side/Images/Screenshot from 2018-03-27 13-12-38.png)
 
 
 # Mime Handling
@@ -50,7 +51,7 @@ URI Schemes Wiki : https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Off
 `sip:` (or `sips:`) is the official URI scheme for SIP
 `callto` is the one used by skype (Source)
 
-Record to be added  : 
+Record to be added  :
 
 	x-scheme-handler/mailto=thunderbird.desktop
 
@@ -66,14 +67,14 @@ I tried using xdg-mime for this. The end of `man xdg-mime` has a snippet to add 
                <glob pattern="*.shi"/>
              </mime-type>
            </mime-info>
-	
-	
+
+
 	> xdg-mime install shinythings-shiny.xml
-	
-	
+
+
 ### Creating a desktop entry
 
-	/usr/share/applications/debdialer.desktop : 
+	/usr/share/applications/debdialer.desktop :
 
 	[Desktop Entry]
 	Version=1.0
@@ -87,9 +88,9 @@ I tried using xdg-mime for this. The end of `man xdg-mime` has a snippet to add 
 	Categories=Utility;Development;
 
 ### Setting default application for tel links with xdg-mime
-	
-Hence the required XML file for 
-	
+
+Hence the required XML file for
+
 	debdialer-tel.xml:
 
 	<?xml version="1.0"?>
@@ -100,7 +101,8 @@ Hence the required XML file for
 	</mime-type>
 	</mime-info>
 
-	> xdg-mime install shinythings-shiny.xml
+	> xdg-mime install debdialer-tel.xml
+
 ### Testing the MIME URI
 - `xdg-mime query default x-scheme-handler/mailto`
 - `xdg-open mailto:vishstar88@gmail.com`
