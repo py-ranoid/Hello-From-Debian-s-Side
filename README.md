@@ -1,4 +1,9 @@
 Note : Find project scrum board [here](https://storm.debian.net/grain/bD3aJdnYLBWo5R3K6GWckn/b/sandstorm/libreboard)
+
+---
+# Week 1
+
+---
 # Setup
 
 ## Installing SIP
@@ -106,3 +111,52 @@ Hence the required XML file for
 ### Testing the MIME URI
 - `xdg-mime query default x-scheme-handler/mailto`
 - `xdg-open mailto:vishstar88@gmail.com`
+
+*TODO : Mail portland to get xdg-mime working*
+
+---
+# Week 2
+
+---
+# Fetching Phone Number details
+
+## Libraries
+### [libphonenumber](https://github.com/googlei18n/libphonenumber)
+Google's common Java, C++ and JavaScript library for parsing, formatting, and validating international phone numbers. The Java version is optimized for running on smartphones, and is used by the Android framework since 4.0
+
+### [python-phonenumbers](https://superuser.com/questions/159775/is-there-a-firefox-shortcut-to-copy-the-url-of-thecurrent-page)
+This is a Python port of libphonenumber and supports Python 2.5-2.7 and Python 3.x<br>
+Installation :
+	`pip install phonenumbers`
+
+Created a script called `fetch_details.py` to call methods of `phonenumbers`. These methods are used to fetch details about a phone number. Before performing any operations, we must generate a `PhoneNumber` object from the phone number and the country the phone number is being dialled from (unless the number is in E.164 format, which is globally unique). <br> This presents a new obstacle since a country code now needs to be assigned to the number if it isn't in  E.164 format.
+<br>
+I plan to display the following details of a phone number (presuming it is in E.164 format)
+- Timezone
+	- Done
+	- Displaying Timezone name and UTC Offset
+- Carrier
+	- Done
+	- Displaying Carrier Name
+- Country
+	- Incomplete
+	- Have not been able to get the two letter country code
+	- Once I have the country code, I can also display the flag
+
+# Displaying Phone Number details
+## About GUI
+- `Ui_Dialog` in `design2.py` contains the structure and components of the GUI and is generated automatically by `pyuic4` from `design2.ui`
+- `DialerApp` in `dialer_main.py` inherits `QtGui.QDialog` and generates a PyQt4 Dialog using`Ui_Dialog`.
+- Since `design2.py` is over-writted every time the `design2.ui` is compiled, all the methods and functional properties of the Buttons and Textboxes is assigned in `DialerApp`.
+
+## GUI Initialisation
+- `object_map` is a dictionary to map key values to GUI components. If the component variable names change in the future, `DialerApp` will remain unaffected with the exception of `objectMapSetup`.
+- Numeric buttons are connected to `click_action` with number value as an argument.
+
+## Fetch Details button
+- The "**Fetch Details**" button is mapped to the `setDetails` functions which calls other methods to fetch and set details.
+- I plan to trigger the button when the contents of "NumTextBox" changes.
+- Functionality
+	- Formats the number
+	- Sets Timezone
+	- Sets Carrier
