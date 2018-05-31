@@ -1,9 +1,10 @@
 from PyQt4 import QtGui
+from PyQt4.QtGui import QTextCursor
 import sys
 from functools import partial
 from design2 import Ui_Dialog, _translate
 import argparse
-from phonenumbers import parse
+from phonenumbers import parse, is_valid_number
 from fetch_details import get_timezone, get_carrier, formatNum
 from pytz import timezone
 from datetime import datetime
@@ -15,15 +16,41 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setupUi(self)
         self.objectMapSetup()
 
+        self.ignore = False
         if num is not None:
             self.setDialerNumber(num)
+            self.ignore = False
 
+        self.ignore = False
+        print "INIT:", self.ignore
         num_list = map(str, range(0, 10)) + ['*', '#']
 
         for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
 
         self.object_map["FetchDetails"].clicked.connect(self.setDetails)
+        self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
+        self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
+
+    def num_changed(self):
+        print "Changed", self.ignore
+        if not self.ignore:
+            # Critical section
+            self.setDetails()
+            """
+            num = self.getDialerNumber()
+            self.setDialerNumber('-' + num)
+            """
+            self.ignore = False
+
+    # def keyPressEvent(self, event):
+    #     print type(event)
+    #     if type(event) == QtGui.QKeyEvent:
+    #         # here accept the event and do something
+    #         print event.key()
+    #         event.accept()
+    #     else:
+    #         event.ignore()
 
     def objectMapSetup(self):
         self.btn_list = [self.pushButton_12,  # 0
@@ -44,32 +71,44 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         return str(self.object_map["NumTextBox"].toPlainText()).strip()
 
     def setDialerNumber(self, x):
+        print "PRE", self.ignore
+        self.ignore = True
         self.object_map["NumTextBox"].setPlainText(x)
+        self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
+        print "POST", self.ignore
 
     def click_action(self, x):
         self.object_map["NumTextBox"].insertPlainText(x)
 
     def setDetails(self):
-        x = parse(self.getDialerNumber())
-        self.setTimezone(x)
-        self.setCarrier(x)
-
+        number = self.getDialerNumber()
+        try:
+            x = parse(number)
+        except:
+            print "Number Parse error"
+            return
+        validity = is_valid_number(x)
+        self.setTimezone(x, validity)
+        self.setCarrier(x, validity)
         formatted = formatNum(x)
         self.setDialerNumber(formatted)
 
     def setLocation(self, pnum):
         num = self.getDialerNumber()
 
-    def setCarrier(self, pnum):
-        carr = get_carrier(pnum)
+    def setCarrier(self, pnum, valid):
+        carr = get_carrier(pnum) if valid else 'NA'
         self.object_map["Carrier"].setText('Carrier : ' + carr)
 
-    def setTimezone(self, pnum):
-        tz = get_timezone(pnum)[0]
-        utcdelta = timezone(tz).utcoffset(datetime.now())
-        utcoff = str(float(utcdelta.seconds) / 3600)
-        self.object_map["Timezone"].setText(
-            'Timezone : ' + tz + " | UTC+" + utcoff)
+    def setTimezone(self, pnum, valid):
+        if valid:
+            tz = get_timezone(pnum)[0] if valid else ''
+            utcdelta = timezone(tz).utcoffset(datetime.now())
+            utcoff = str(float(utcdelta.seconds) / 3600)
+            self.object_map["Timezone"].setText(
+                'Timezone : ' + tz + " | UTC+" + utcoff)
+        else:
+            self.object_map["Timezone"].setText('Timezone : NA')
 
 
 def main(num):
@@ -86,4 +125,7 @@ if __name__ == '__main__':
     parser.add_argument("-n", "--num", help="Number", type=str, default=None)
     args = parser.parse_args()
     number = args.num
-    main(number)
+    try:
+        main(number)
+    except KeyboardInterrupt:
+        print "Interrupt"
