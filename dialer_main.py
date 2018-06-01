@@ -5,7 +5,7 @@ from functools import partial
 from design2 import Ui_Dialog, _translate
 import argparse
 from phonenumbers import parse, is_valid_number
-from fetch_details import get_timezone, get_carrier, formatNum
+from fetch_details import get_timezone, get_carrier, formatNum, get_country
 from pytz import timezone
 from datetime import datetime
 
@@ -29,8 +29,10 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             bt.clicked.connect(partial(self.click_action, val))
 
         self.object_map["FetchDetails"].clicked.connect(self.setDetails)
+        self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
+        # self.setDetails()
 
     def num_changed(self):
         print "Changed", self.ignore
@@ -64,7 +66,10 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
                            "Location": self.label,
                            "Carrier": self.label_2,
                            "Timezone": self.label_3,
-                           "FetchDetails": self.pushButton_15
+                           "FetchDetails": self.pushButton_15,
+                           "DelButton": self.pushButton_13,
+                           "Location": self.label,
+                           "FlagBox": self.label_4
                            }
 
     def getDialerNumber(self):
@@ -80,6 +85,24 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
     def click_action(self, x):
         self.object_map["NumTextBox"].insertPlainText(x)
 
+    def del_action(self):
+        self.setDialerNumber(self.getDialerNumber()[:-1])
+
+    def setCountry(self, pnum, valid):
+        default = {"name": "NA", 'code': "NULL"}
+        country = get_country(pnum.country_code) if valid else default
+        print country
+        flag_sp = ' ' * 15
+        locstring = flag_sp + country['name'] if valid else flag_sp + "NA"
+        self.object_map['Location'].setText('Country :' + locstring)
+        self.setFlag(country['code'])
+
+    def setFlag(self, code):
+        pixmap = QtGui.QPixmap('/home/b/Downloads/' + code + '-32.png')
+        pixmap = pixmap.scaledToHeight(21)
+        print dir(self.object_map["FlagBox"])
+        self.object_map["FlagBox"].setPixmap(pixmap)
+
     def setDetails(self):
         number = self.getDialerNumber()
         try:
@@ -90,6 +113,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         validity = is_valid_number(x)
         self.setTimezone(x, validity)
         self.setCarrier(x, validity)
+        self.setCountry(x, validity)
         formatted = formatNum(x)
         self.setDialerNumber(formatted)
 

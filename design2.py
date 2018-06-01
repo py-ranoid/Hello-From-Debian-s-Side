@@ -16,26 +16,23 @@ except AttributeError:
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
-
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
-        Dialog.resize(512, 321)
+        Dialog.resize(559, 321)
         self.plainTextEdit = QtGui.QPlainTextEdit(Dialog)
-        self.plainTextEdit.setGeometry(QtCore.QRect(10, 60, 491, 51))
+        self.plainTextEdit.setGeometry(QtCore.QRect(10, 60, 541, 51))
         font = QtGui.QFont()
         font.setPointSize(24)
         self.plainTextEdit.setFont(font)
         self.plainTextEdit.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.plainTextEdit.setStyleSheet(
-            _fromUtf8("background-color: rgb(200, 200, 200); color : rgb(20, 20, 20);"))
+        self.plainTextEdit.setStyleSheet(_fromUtf8("background-color: rgb(200, 200, 200); color : rgb(20, 20, 20);"))
         self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
         self.pushButton = QtGui.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(10, 120, 61, 41))
@@ -110,59 +107,60 @@ class Ui_Dialog(object):
         self.pushButton_12.setFont(font)
         self.pushButton_12.setObjectName(_fromUtf8("pushButton_12"))
         self.pushButton_14 = QtGui.QPushButton(Dialog)
-        self.pushButton_14.setGeometry(QtCore.QRect(230, 120, 131, 41))
-        self.pushButton_14.setStyleSheet(
-            _fromUtf8("background-color: rgb(222, 125, 13); color : black;"))
+        self.pushButton_14.setGeometry(QtCore.QRect(280, 120, 131, 41))
+        self.pushButton_14.setStyleSheet(_fromUtf8("background-color: rgb(222, 125, 13); color : black;"))
         self.pushButton_14.setObjectName(_fromUtf8("pushButton_14"))
         self.pushButton_15 = QtGui.QPushButton(Dialog)
-        self.pushButton_15.setGeometry(QtCore.QRect(230, 170, 271, 41))
+        self.pushButton_15.setGeometry(QtCore.QRect(280, 170, 271, 41))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setItalic(True)
         self.pushButton_15.setFont(font)
-        self.pushButton_15.setStyleSheet(
-            _fromUtf8("background-color: rgb(46, 166, 60); color : black;"))
+        self.pushButton_15.setStyleSheet(_fromUtf8("background-color: rgb(46, 166, 60); color : black;"))
         self.pushButton_15.setObjectName(_fromUtf8("pushButton_15"))
         self.pushButton_16 = QtGui.QPushButton(Dialog)
-        self.pushButton_16.setGeometry(QtCore.QRect(370, 120, 131, 41))
-        self.pushButton_16.setStyleSheet(
-            _fromUtf8("background-color: rgb(222, 125, 13); color : black;"))
+        self.pushButton_16.setGeometry(QtCore.QRect(420, 120, 131, 41))
+        self.pushButton_16.setStyleSheet(_fromUtf8("background-color: rgb(222, 125, 13); color : black;"))
         self.pushButton_16.setObjectName(_fromUtf8("pushButton_16"))
         self.label = QtGui.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(10, 10, 81, 21))
+        self.label.setGeometry(QtCore.QRect(10, 10, 221, 21))
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(Dialog)
         self.label_2.setGeometry(QtCore.QRect(410, 10, 101, 21))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label_3 = QtGui.QLabel(Dialog)
-        self.label_3.setGeometry(QtCore.QRect(10, 30, 211, 21))
+        self.label_3.setGeometry(QtCore.QRect(10, 30, 221, 21))
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.pushButton_17 = QtGui.QPushButton(Dialog)
-        self.pushButton_17.setGeometry(QtCore.QRect(230, 270, 271, 41))
+        self.pushButton_17.setGeometry(QtCore.QRect(280, 270, 271, 41))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setItalic(True)
         self.pushButton_17.setFont(font)
-        self.pushButton_17.setStyleSheet(
-            _fromUtf8("background-color: rgb(46, 166, 60); color : black;"))
+        self.pushButton_17.setStyleSheet(_fromUtf8("background-color: rgb(46, 166, 60); color : black;"))
         self.pushButton_17.setObjectName(_fromUtf8("pushButton_17"))
         self.pushButton_18 = QtGui.QPushButton(Dialog)
-        self.pushButton_18.setGeometry(QtCore.QRect(230, 220, 271, 41))
+        self.pushButton_18.setGeometry(QtCore.QRect(280, 220, 271, 41))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setItalic(True)
         self.pushButton_18.setFont(font)
-        self.pushButton_18.setStyleSheet(
-            _fromUtf8("background-color: rgb(46, 166, 60); color : black;"))
+        self.pushButton_18.setStyleSheet(_fromUtf8("background-color: rgb(46, 166, 60); color : black;"))
         self.pushButton_18.setObjectName(_fromUtf8("pushButton_18"))
+        self.pushButton_13 = QtGui.QPushButton(Dialog)
+        self.pushButton_13.setGeometry(QtCore.QRect(230, 120, 41, 191))
+        self.pushButton_13.setStyleSheet(_fromUtf8("background-color: rgb(255, 68, 51); color : black;"))
+        self.pushButton_13.setObjectName(_fromUtf8("pushButton_13"))
+        self.label_4 = QtGui.QLabel(Dialog)
+        self.label_4.setGeometry(QtCore.QRect(70, 10, 41, 21))
+        self.label_4.setObjectName(_fromUtf8("label_4"))
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Dialer", None))
-        self.plainTextEdit.setPlainText(
-            _translate("Dialog", "+91 9176119388", None))
+        self.plainTextEdit.setPlainText(_translate("Dialog", "  +91 9176119388", None))
         self.pushButton.setText(_translate("Dialog", "1", None))
         self.pushButton_2.setText(_translate("Dialog", "2 | abc", None))
         self.pushButton_3.setText(_translate("Dialog", "3  | def", None))
@@ -176,15 +174,13 @@ class Ui_Dialog(object):
         self.pushButton_11.setText(_translate("Dialog", "*", None))
         self.pushButton_12.setText(_translate("Dialog", "0 | +", None))
         self.pushButton_14.setText(_translate("Dialog", "Open Contact", None))
-        self.pushButton_15.setText(_translate(
-            "Dialog", "Fetch Details", None))
-        self.pushButton_16.setText(_translate(
-            "Dialog", "Add to Contacts", None))
-        self.label.setText(_translate("Dialog", "Location : ", None))
-        self.label_2.setText(_translate("Dialog", "Carrier : ", None))
-        self.label_3.setText(_translate(
-            "Dialog", "Timezone : ", None))
-        self.pushButton_17.setText(_translate(
-            "Dialog", "SEND TO ANDROID PHONE", None))
-        self.pushButton_18.setText(_translate(
-            "Dialog", "CALL with sipdial", None))
+        self.pushButton_15.setText(_translate("Dialog", "CALL with pjsua", None))
+        self.pushButton_16.setText(_translate("Dialog", "Add to Contacts", None))
+        self.label.setText(_translate("Dialog", "Location :  NA", None))
+        self.label_2.setText(_translate("Dialog", "Carrier : NA", None))
+        self.label_3.setText(_translate("Dialog", "Timezone : NA", None))
+        self.pushButton_17.setText(_translate("Dialog", "SEND TO ANDROID PHONE", None))
+        self.pushButton_18.setText(_translate("Dialog", "CALL with sipdial", None))
+        self.pushButton_13.setText(_translate("Dialog", "DEL", None))
+        self.label_4.setText(_translate("Dialog", "  ", None))
+
