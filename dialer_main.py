@@ -100,7 +100,6 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
     def setFlag(self, code):
         pixmap = QtGui.QPixmap('/home/b/Downloads/' + code + '-32.png')
         pixmap = pixmap.scaledToHeight(21)
-        print dir(self.object_map["FlagBox"])
         self.object_map["FlagBox"].setPixmap(pixmap)
 
     def setDetails(self):
