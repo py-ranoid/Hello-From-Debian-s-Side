@@ -1,7 +1,12 @@
 from phonenumbers import timezone, carrier, format_number, PhoneNumberFormat
+from json import load
 
 import phonenumbers
-x = phonenumbers.parse("+919176119388")
+x = phonenumbers.parse("9176119388", "IN")
+
+SOURCE_FILE = 'DialerCodes.json'
+with open(SOURCE_FILE) as f:
+    CC_dict = load(f)
 
 
 def get_carrier(x):
@@ -12,9 +17,18 @@ def get_timezone(x):
     return timezone.time_zones_for_number(x)
 
 
-def formatNum(x):
-    return format_number(x, PhoneNumberFormat.INTERNATIONAL)
+def formatNum(x, national=True):
+    if national:
+        return format_number(x, PhoneNumberFormat.NATIONAL)
+    else:
+        return format_number(x, PhoneNumberFormat.INTERNATIONAL)
 
+
+def get_country(x):
+    return CC_dict[str(x.country_code)]
+
+
+x.
 
 """
 formatter = phonenumbers.AsYouTypeFormatter("IN")
