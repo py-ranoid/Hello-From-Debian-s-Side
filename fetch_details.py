@@ -17,7 +17,7 @@ def get_timezone(x):
     return timezone.time_zones_for_number(x)
 
 
-def formatNum(x, national=True):
+def formatNum(x, national=False):
     if national:
         return format_number(x, PhoneNumberFormat.NATIONAL)
     else:
@@ -25,10 +25,8 @@ def formatNum(x, national=True):
 
 
 def get_country(x):
-    return CC_dict[str(x.country_code)]
+    return CC_dict[str(x)]
 
-
-x.
 
 """
 formatter = phonenumbers.AsYouTypeFormatter("IN")
