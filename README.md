@@ -160,3 +160,25 @@ I plan to display the following details of a phone number (presuming it is in E.
 	- Formats the number
 	- Sets Timezone
 	- Sets Carrier
+
+---
+# Week 3
+
+---
+# Triggering `setDetails`
+##### Goal : Format and fetch details about a number implicitly for every change
+- This was achieve by connecting a function (`self.num_changed`) to `textChanged` property of `NumTextBox`
+- However, since I would also format the Number after fetching details, it would trigger the `textChanged` property again. Hence each change would lead to a recursive loop.
+- This was handled by `self.ignore` which acts as a kind of a lock. `setDetails` is called only when `self.ignore` is `False` but after formatting the number, `self.ignore` is set to `True`.
+
+# Setting country details
+- `libphonenumber` manages to fetch the `country_code` (dialer code) but does not return the country name or 2-letter code
+- To do this, one may need to call the `geocoding` module which takes a lot of memory and is computationally expensive
+- Instead, I stored import country codes as a separate json (Derived from [this](https://gist.github.com/Goles/3196253))
+- Additionally, I also saved 32px long flags in `flags/` by copying them from [this repository](https://github.com/cristiroma/countries)
+- Thus I'm also displaying the country's name and flag.
+
+# Other Updates
+- Moved cursor to end of line after in the beginning and formatting it every time.
+- Added a **Delete button** to delete the last character
+- Forked and ran [kdeconnect's Android project](https://github.com/KDE/kdeconnect-android)
