@@ -16,6 +16,10 @@ Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.h
 	python configure.py
 	make
 	make install
+	
+	cd ..
+	rm -rf sip-4.19.7
+	rm sip-4.19.7.tar.gz
 
 ## Installing PyQt4
 Download from here : https://riverbankcomputing.com/software/pyqt/download
@@ -25,7 +29,9 @@ Installation instructions : http://pyqt.sourceforge.net/Docs/PyQt4/installation.
 	tar -xvzf PyQt4_gpl_x11-4.12.1.tar.gz
 	cd PyQt4_gpl_x11-4.12.1
 	python configure.py
-
+	cd ..
+	rm -rf PyQt4_gpl_x11-4.12.1
+	rm PyQt4_gpl_x11-4.12.1.tar.gz
 Note :
 Use `--sipdir ` to specify an sip path
 Use `-q` to specify an sip path
