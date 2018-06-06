@@ -10,6 +10,7 @@ Note : Find project scrum board [here](https://storm.debian.net/grain/bD3aJdnYLB
 Download from here : https://riverbankcomputing.com/software/sip/download
 Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.html
 
+	wget https://sourceforge.net/projects/pyqt/files/sip/sip-4.19.7/sip-4.19.7.tar.gz
 	tar -xvzf sip-4.19.7.tar.gz
 	cd sip-4.19.7
 	python configure.py
@@ -20,6 +21,7 @@ Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.h
 Download from here : https://riverbankcomputing.com/software/pyqt/download
 Installation instructions : http://pyqt.sourceforge.net/Docs/PyQt4/installation.html
 
+	wget http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12.1/PyQt4_gpl_x11-4.12.1.tar.gz
 	tar -xvzf PyQt4_gpl_x11-4.12.1.tar.gz
 	cd PyQt4_gpl_x11-4.12.1
 	python configure.py
@@ -182,3 +184,14 @@ I plan to display the following details of a phone number (presuming it is in E.
 - Moved cursor to end of line after in the beginning and formatting it every time.
 - Added a **Delete button** to delete the last character
 - Forked and ran [kdeconnect's Android project](https://github.com/KDE/kdeconnect-android)
+
+---
+# Week 4
+
+---
+# Migrating from Python 2.7 to 3.5
+- Creating a conda environment
+		conda create --name deb python=3.5
+- Installing dependencies
+
+		conda install phonenumbers

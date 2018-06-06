@@ -22,8 +22,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             self.ignore = False
 
         self.ignore = False
-        print "INIT:", self.ignore
-        num_list = map(str, range(0, 10)) + ['*', '#']
+        num_list = list(map(str, range(0, 10))) + ['*', '#']
 
         for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
@@ -35,7 +34,6 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         # self.setDetails()
 
     def num_changed(self):
-        print "Changed", self.ignore
         if not self.ignore:
             # Critical section
             self.setDetails()
@@ -76,11 +74,9 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         return str(self.object_map["NumTextBox"].toPlainText()).strip()
 
     def setDialerNumber(self, x):
-        print "PRE", self.ignore
         self.ignore = True
         self.object_map["NumTextBox"].setPlainText(x)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
-        print "POST", self.ignore
 
     def click_action(self, x):
         self.object_map["NumTextBox"].insertPlainText(x)
@@ -91,7 +87,6 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
     def setCountry(self, pnum, valid):
         default = {"name": "NA", 'code': "NULL"}
         country = get_country(pnum.country_code) if valid else default
-        print country
         flag_sp = ' ' * 15
         locstring = flag_sp + country['name'] if valid else flag_sp + "NA"
         self.object_map['Location'].setText('Country :' + locstring)
@@ -107,7 +102,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         try:
             x = parse(number)
         except:
-            print "Number Parse error"
+            print ("Number Parse error")
             return
         validity = is_valid_number(x)
         self.setTimezone(x, validity)
@@ -151,4 +146,4 @@ if __name__ == '__main__':
     try:
         main(number)
     except KeyboardInterrupt:
-        print "Interrupt"
+        print ("Interrupt")
