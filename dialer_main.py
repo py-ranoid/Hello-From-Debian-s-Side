@@ -93,7 +93,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setFlag(country['code'])
 
     def setFlag(self, code):
-        pixmap = QtGui.QPixmap('/home/b/Downloads/' + code + '-32.png')
+        pixmap = QtGui.QPixmap('resources/flags/' + code + '-32.png')
         pixmap = pixmap.scaledToHeight(21)
         self.object_map["FlagBox"].setPixmap(pixmap)
 

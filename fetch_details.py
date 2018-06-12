@@ -4,7 +4,7 @@ from json import load
 import phonenumbers
 x = phonenumbers.parse("9176119388", "IN")
 
-SOURCE_FILE = 'DialerCodes.json'
+SOURCE_FILE = 'resources/DialerCodes.json'
 with open(SOURCE_FILE) as f:
     CC_dict = load(f)
 
