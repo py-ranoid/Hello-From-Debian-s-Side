@@ -59,14 +59,14 @@ Reference : https://nikolak.com/pyqt-qt-designer-getting-started/
 
 
 # Mime Handling
-URI Schemes Wiki : https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Official_IANA-registered_schemes
-`tel:` URI documentation : http://www.ietf.org/rfc/rfc3966.txt
-`sip:` (or `sips:`) is the official URI scheme for SIP
+URI Schemes Wiki : https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Official_IANA-registered_schemes<br>
+`tel:` URI documentation : http://www.ietf.org/rfc/rfc3966.txt<br>
+`sip:` (or `sips:`) is the official URI scheme for SIP<br>
 `callto` is the one used by skype (Source)
 
 Record to be added  :
 
-	x-scheme-handler/mailto=thunderbird.desktop
+	x-scheme-handler/tel=debdialer.desktop
 
 I tried using xdg-mime for this. The end of `man xdg-mime` has a snippet to add a file type description for "shiny"-files. "shinythings-" is used as the vendor prefix. The file type description could look as follows.
 
@@ -108,19 +108,17 @@ Hence the required XML file for
 
 	<?xml version="1.0"?>
 	<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
-	<mime-type type="x-scheme-handler/tel=debdialer.desktop">
-	<comment>Invoking Debian Dialer</comment>
-	<glob pattern="tel:*"/>
-	</mime-type>
+		<mime-type type="x-scheme-handler/tel=debdialer.desktop">
+			<comment>Invoking Debian Dialer</comment>
+			<glob pattern="tel:*"/>
+		</mime-type>
 	</mime-info>
 
-	> xdg-mime install debdialer-tel.xml
+	>> xdg-mime install debdialer-tel.xml
 
 ### Testing the MIME URI
-- `xdg-mime query default x-scheme-handler/mailto`
-- `xdg-open mailto:vishstar88@gmail.com`
-
-*TODO : Mail portland to get xdg-mime working*
+- `xdg-mime query default x-scheme-handler/tel`
+- `xdg-open tel:873811`
 
 ---
 # Week 2

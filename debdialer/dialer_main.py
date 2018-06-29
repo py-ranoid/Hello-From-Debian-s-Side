@@ -2,7 +2,7 @@ from PyQt4 import QtGui
 from PyQt4.QtGui import QTextCursor
 import sys
 from functools import partial
-from design2 import Ui_Dialog, _translate
+from design2 import Ui_Dialog
 import argparse
 from phonenumbers import parse, is_valid_number
 from fetch_details import get_timezone, get_carrier, formatNum, get_country
