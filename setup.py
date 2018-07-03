@@ -7,5 +7,10 @@ setup(name='debdialer',
       author='Vishal Gupta',
       author_email='vishalg8897@gmail.com',
       license='GNU',
+      install_requires=[
+          'pytz',
+          'phonenumbers',
+      ],
+
       packages=['debdialer'],
       zip_safe=False)
