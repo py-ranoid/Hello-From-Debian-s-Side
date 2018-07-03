@@ -24,3 +24,10 @@ Note : If the MIME link doesn't work, try logging out and back in.<br>
 ```
 xdg-open tel:873811
 ```
+### Setting default country code
+```
+export DEBDIALER_COUNTRY='<2 letter country code>'
+
+# For example
+export DEBDIALER_COUNTRY='IN'
+```
