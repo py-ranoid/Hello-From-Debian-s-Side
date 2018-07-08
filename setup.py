@@ -7,10 +7,11 @@ setup(name='debdialer',
       author='Vishal Gupta',
       author_email='vishalg8897@gmail.com',
       license='GNU',
+      package_data={'debdialer': ['resources/DialerCodes.json','resources/flags/*']},
+      include_package_data=True,
       install_requires=[
           'pytz',
           'phonenumbers',
       ],
-
       packages=['debdialer'],
       zip_safe=False)

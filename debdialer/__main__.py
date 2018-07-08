@@ -17,12 +17,12 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setupUi(self)
         self.objectMapSetup()
 
-        self.ignore = False
+        # self.ignore = False
         if num is not None:
             self.setDialerNumber(num)
             self.ignore = False
 
-        self.ignore = False
+        # self.ignore = False
         num_list = list(map(str, range(0, 10))) + ['*', '#']
 
         for val, bt in zip(num_list, self.btn_list):
@@ -33,6 +33,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
         self.setDetails()
+        self.ignore = False
 
     def num_changed(self):
         if not self.ignore:
