@@ -1,4 +1,4 @@
-from phonenumbers import timezone, carrier, format_number, PhoneNumberFormat
+from phonenumbers import timezone, carrier, format_number, PhoneNumberFormat, PhoneNumberMatcher
 from json import load
 
 import phonenumbers
@@ -21,16 +21,24 @@ def get_timezone(x):
     return timezone.time_zones_for_number(x)
 
 
-def formatNum(x, national=False):
-    if national:
-        return format_number(x, PhoneNumberFormat.NATIONAL)
+def formatNum(x, kind=None):
+    if kind:
+        if kind == 'national':
+            return format_number(x, PhoneNumberFormat.NATIONAL)
+        else:
+            return format_number(x, PhoneNumberFormat.INTERNATIONAL)
     else:
-        return format_number(x, PhoneNumberFormat.INTERNATIONAL)
+        return format_number(x, PhoneNumberFormat.E164)
 
 
 def get_country(x):
     return CC_dict[str(x)]
 
+def parse_file_for_nums(fpath,country_code):
+    with open(fpath,'r') as f:
+        text = f.read()
+    matches = PhoneNumberMatcher(text, country_code)
+    return list([formatNum(x.number) for x in matches])
 
 """
 formatter = phonenumbers.AsYouTypeFormatter("IN")
