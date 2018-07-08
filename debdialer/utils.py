@@ -22,15 +22,16 @@ def check_ip_for_country_code():
         r = http.request('GET', 'http://ipinfo.io')
     except exceptions.MaxRetryError:
         return None
-    json_resp = json.loads(r.data)
+    json_resp = json.loads(r.data.decode('utf-8'))
     return json_resp['country']
 
 
 def get_default_code():
     default_country = os.environ.get('DEBDIALER_COUNTRY', None)
     if default_country is not None:
-        return default_country
+        return (default_country,0)
     else:
         ip_result = check_ip_for_country_code()
         if ip_result is not None:
-            return ip_result
+            return (ip_result,1)
+    return (None,0)

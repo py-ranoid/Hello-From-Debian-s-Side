@@ -5,7 +5,9 @@ from functools import partial
 from .design2 import Ui_Dialog
 import argparse
 from phonenumbers import parse, is_valid_number
+from phonenumbers.phonenumberutil import NumberParseException
 from .fetch_details import get_timezone, get_carrier, formatNum, get_country
+from .utils import get_default_code
 from pytz import timezone
 from datetime import datetime
 from pkg_resources import resource_filename
@@ -16,7 +18,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         super(self.__class__, self).__init__()
         self.setupUi(self)
         self.objectMapSetup()
-
+        self.loc_setting = None
         # self.ignore = False
         if num is not None:
             self.setDialerNumber(num)
@@ -92,8 +94,13 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
     def setCountry(self, pnum, valid):
         default = {"name": "NA", 'code': "NULL"}
         country = get_country(pnum.country_code) if valid else default
-        flag_sp = ' ' * 15
-        locstring = flag_sp + country['name'] if valid else flag_sp + "NA"
+        flag_sp = ' ' * 20
+        if valid:
+            locstring = flag_sp + country['name']
+            if self.loc_setting:
+                locstring += '('+self.loc_setting+')'
+        else:
+            locstring = flag_sp + "NA"
         self.object_map['Location'].setText('Country :' + locstring)
         self.setFlag(country['code'])
 
@@ -108,9 +115,18 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         number = self.getDialerNumber()
         try:
             x = parse(number)
-        except:
-            print ("Number Parse error")
-            return
+            self.loc_setting = None
+        except NumberParseException as e:
+            if e.error_type == 0:
+                ccode,ip = get_default_code()
+                if ccode:
+                    x = parse(number,ccode)
+                    self.loc_setting = 'IP' if ip else 'ENV'
+                else:
+                    return
+            else:
+                print (e.args)
+                return
         validity = is_valid_number(x)
         self.setTimezone(x, validity)
         self.setCarrier(x, validity)
