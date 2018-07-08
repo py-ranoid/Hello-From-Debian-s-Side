@@ -185,7 +185,7 @@ class Ui_Dialog(object):
         self.pushButton_12.setText(_translate("Dialog", "0 | +", None))
         self.pushButton_14.setText(_translate("Dialog", "Open Contact", None))
         self.pushButton_15.setText(_translate(
-            "Dialog", "CALL with pjsua", None))
+            "Dialog", "Open File", None))
         self.pushButton_16.setText(_translate(
             "Dialog", "Add to Contacts", None))
         self.label.setText(_translate("Dialog", "Location :  NA", None))

@@ -37,6 +37,7 @@ def get_country(x):
 def parse_file_for_nums(fpath,country_code):
     with open(fpath,'r') as f:
         text = f.read()
+    print ("Parsing",fpath,"for","numbers. Code :",country_code)
     matches = PhoneNumberMatcher(text, country_code)
     return list([formatNum(x.number) for x in matches])
 

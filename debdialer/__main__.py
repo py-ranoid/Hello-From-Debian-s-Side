@@ -6,7 +6,7 @@ from .design2 import Ui_Dialog
 import argparse
 from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
-from .fetch_details import get_timezone, get_carrier, formatNum, get_country
+from .fetch_details import get_timezone, get_carrier, formatNum, get_country,parse_file_for_nums
 from .utils import get_default_code
 from pytz import timezone
 from datetime import datetime
@@ -30,7 +30,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
 
-        self.object_map["FetchDetails"].clicked.connect(self.setDetails)
+        self.object_map["FileButton"].clicked.connect(self.choose_file)
         self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
@@ -46,6 +46,12 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             self.setDialerNumber('-' + num)
             """
             self.ignore = False
+
+    def choose_file(self):
+        filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '/')
+        country_code = get_default_code()
+        country_code = 'IN' if country_code[0] is None else country_code[0]
+        print (parse_file_for_nums(filepath,country_code))
 
 
     # def keyPressEvent(self, event):
@@ -69,10 +75,10 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
                            "Location": self.label,
                            "Carrier": self.label_2,
                            "Timezone": self.label_3,
-                           "FetchDetails": self.pushButton_15,
                            "DelButton": self.pushButton_13,
                            "Location": self.label,
-                           "FlagBox": self.label_4
+                           "FlagBox": self.label_4,
+                           "FileButton":self.pushButton_15,
                            }
 
     def getDialerNumber(self):
@@ -131,7 +137,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setTimezone(x, validity)
         self.setCarrier(x, validity)
         self.setCountry(x, validity)
-        formatted = formatNum(x)
+        formatted = formatNum(x,'inter')
         self.setDialerNumber(formatted)
 
     def setLocation(self, pnum):
