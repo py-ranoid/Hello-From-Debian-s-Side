@@ -31,7 +31,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
-        # self.setDetails()
+        self.setDetails()
 
     def num_changed(self):
         if not self.ignore:
@@ -42,6 +42,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             self.setDialerNumber('-' + num)
             """
             self.ignore = False
+
 
     # def keyPressEvent(self, event):
     #     print type(event)
@@ -55,7 +56,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
     def objectMapSetup(self):
         self.btn_list = [self.pushButton_12,  # 0
                          self.pushButton, self.pushButton_2, self.pushButton_3,  # 123
-                         self.pushButton_4, self.pushButton_5, self.pushButton_6,  # 456
+                         self.pushButton_6, self.pushButton_4, self.pushButton_5,  # 456
                          self.pushButton_7, self.pushButton_8, self.pushButton_9,  # 789
                          self.pushButton_11, self.pushButton_10]  # *#
 
@@ -83,6 +84,8 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
 
     def del_action(self):
         self.setDialerNumber(self.getDialerNumber()[:-1])
+        self.ignore = False
+        self.num_changed()
 
     def setCountry(self, pnum, valid):
         default = {"name": "NA", 'code': "NULL"}
