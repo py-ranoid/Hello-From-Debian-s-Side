@@ -2,12 +2,13 @@ from PyQt4 import QtGui
 from PyQt4.QtGui import QTextCursor
 import sys
 from functools import partial
-from design2 import Ui_Dialog
+from .design2 import Ui_Dialog
 import argparse
 from phonenumbers import parse, is_valid_number
-from fetch_details import get_timezone, get_carrier, formatNum, get_country
+from .fetch_details import get_timezone, get_carrier, formatNum, get_country
 from pytz import timezone
 from datetime import datetime
+from pkg_resources import resource_filename
 
 
 class DialerApp(QtGui.QDialog, Ui_Dialog):
@@ -96,7 +97,9 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setFlag(country['code'])
 
     def setFlag(self, code):
-        pixmap = QtGui.QPixmap('resources/flags/' + code + '-32.png')
+        FLAG_PATH = 'resources/flags/' + code + '-32.png'
+        FULL_FLAG_PATH = resource_filename(__name__,FLAG_PATH)
+        pixmap = QtGui.QPixmap(FULL_FLAG_PATH)
         pixmap = pixmap.scaledToHeight(21)
         self.object_map["FlagBox"].setPixmap(pixmap)
 

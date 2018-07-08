@@ -2,10 +2,14 @@ from phonenumbers import timezone, carrier, format_number, PhoneNumberFormat
 from json import load
 
 import phonenumbers
+from pkg_resources import resource_filename
+
 x = phonenumbers.parse("9176119388", "IN")
 
 SOURCE_FILE = 'resources/DialerCodes.json'
-with open(SOURCE_FILE) as f:
+SOURCE_FILE_PATH = resource_filename(__name__, SOURCE_FILE)
+
+with open(SOURCE_FILE_PATH) as f:
     CC_dict = load(f)
 
 
