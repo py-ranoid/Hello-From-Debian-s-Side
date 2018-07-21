@@ -14,4 +14,5 @@ setup(name='debdialer',
           'phonenumbers',
       ],
       packages=['debdialer'],
-      zip_safe=False)
+      zip_safe=False
+      )
