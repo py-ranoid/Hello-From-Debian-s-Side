@@ -6,7 +6,6 @@ from debdialer import __path__
 from pytz import timezone
 from datetime import datetime
 import sys
-from pkg_resources import resource_filename
 loc_setting = None
 
 
@@ -72,4 +71,8 @@ def getTimezoneString(pnum, valid):
         return ['Timezone : NA']
 
 if __name__ == '__main__':
-    getDetails(sys.argv[1])
+    optype = sys.argv[1]
+    if optype == '-f':
+        print ('\n'.join(parse_file_for_nums(sys.argv[2],get_default_code()[0])))
+    elif optype == '-p':
+        getDetails(sys.argv[2])
