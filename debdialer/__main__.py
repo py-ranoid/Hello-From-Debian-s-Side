@@ -30,7 +30,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
 
-        self.object_map["FileButton"].clicked.connect(self.choose_file)
+        self.object_map["FileButton"].clicked.connect(self.file_nums)
         self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
@@ -38,6 +38,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.ignore = False
 
     def num_changed(self):
+        """Triggered when number in TextBox is changed"""
         if not self.ignore:
             # Critical section
             self.setDetails()
@@ -48,22 +49,20 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             self.ignore = False
 
     def choose_file(self):
+        """Opens a dialog box to choose a file.
+        Returns path of file"""
         filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '/')
+        return filepath
+
+    def file_nums(self):
+        """Prints list of all numbers in a file"""
+        filepath = self.choose_file()
         country_code = get_default_code()
         country_code = 'IN' if country_code[0] is None else country_code[0]
         print (parse_file_for_nums(filepath,country_code))
 
-
-    # def keyPressEvent(self, event):
-    #     print type(event)
-    #     if type(event) == QtGui.QKeyEvent:
-    #         # here accept the event and do something
-    #         print event.key()
-    #         event.accept()
-    #     else:
-    #         event.ignore()
-
     def objectMapSetup(self):
+        """Creates object_map. Maps human-readable object name to object"""
         self.btn_list = [self.pushButton_12,  # 0
                          self.pushButton, self.pushButton_2, self.pushButton_3,  # 123
                          self.pushButton_6, self.pushButton_4, self.pushButton_5,  # 456
@@ -82,17 +81,22 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
                            }
 
     def getDialerNumber(self):
+        """Get number in dialer from text box.
+        Returns the number as a string"""
         return str(self.object_map["NumTextBox"].toPlainText()).strip()
 
     def setDialerNumber(self, x):
+        """Set contents of NumTextBox to given number (x)"""
         self.ignore = True
         self.object_map["NumTextBox"].setPlainText(x)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
 
     def click_action(self, x):
+        """Inserts x (a number) to NumTextBox after cursor."""
         self.object_map["NumTextBox"].insertPlainText(x)
 
     def del_action(self):
+        """Deletes the character preceeding the cursor in NumTextBox."""
         self.setDialerNumber(self.getDialerNumber()[:-1])
         self.ignore = False
         self.num_changed()
