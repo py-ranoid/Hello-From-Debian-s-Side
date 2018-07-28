@@ -2,7 +2,7 @@ from PyQt4 import QtGui
 from PyQt4.QtGui import QTextCursor
 import sys
 from functools import partial
-from .design2 import Ui_Dialog
+from .design import Ui_Dialog
 import argparse
 from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
