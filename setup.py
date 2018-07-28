@@ -13,6 +13,10 @@ setup(name='debdialer',
           'pytz',
           'phonenumbers',
       ],
+      # scripts=['bin/funniest-joke'],
+      entry_points = {
+            'console_scripts': ['debdialer=debdialer:cli_main'],
+        },
       packages=['debdialer'],
       zip_safe=False
       )
