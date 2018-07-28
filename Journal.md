@@ -207,3 +207,16 @@ I plan to display the following details of a phone number (presuming it is in E.
 - Added `setup.py` for the package
 - Need to add requirements.txt
 - Need to work out desktop app addition and MIME handling
+
+---
+# Week 5
+
+---
+# Sorting out default country
+If the number isn't in E.164 format, libphonenumber can't accomplish much with the number.
+<br> Hence it's important to assign a default country code in such scenarios.
+
+## Using environment variables
+- Using `DEBDIALER_COUNTRY`
+
+        export DEBDIALER_COUNTRY="IN"
