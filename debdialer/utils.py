@@ -17,6 +17,9 @@ def country_code_mapper(source='./resources/CountryCodes.json', destination='Dia
 
 
 def check_ip_for_country_code():
+    """ Sends a get request to http://ipinfo.io to fetch details about the
+    user's country based on Public IP.
+    """
     http = PoolManager()
     try :
         r = http.request('GET', 'http://ipinfo.io')
@@ -27,6 +30,22 @@ def check_ip_for_country_code():
 
 
 def get_default_code():
+    """Used to fetch default country code if number isn't in E164 format.
+    To manually set the default country_code,
+        export DEBDIALER_COUNTRY='<2 letter code>'
+    For example,
+        export DEBDIALER_COUNTRY='US'
+
+    If DEBDIALER_COUNTRY isn't present as an environment variable,
+        check user's public IP to predict user's current country.
+        (may be misleading if user is using a VPN or
+        trying to parse international numbers)
+
+    Returns 2 values:
+        result : None, if default country code couldn't be found
+        choice : 1, if default country was determined from IP address
+                 0, if default country was determined from environment variable.
+    """
     default_country = os.environ.get('DEBDIALER_COUNTRY', None)
     if default_country is not None:
         return (default_country,0)
@@ -34,4 +53,4 @@ def get_default_code():
         ip_result = check_ip_for_country_code()
         if ip_result is not None:
             return (ip_result,1)
-    return (None,0)
+    return (None,None)
