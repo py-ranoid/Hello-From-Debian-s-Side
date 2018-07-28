@@ -102,6 +102,16 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.num_changed()
 
     def setCountry(self, pnum, valid):
+        """Accepts a phone number sets country details.
+        If number is invalid, sets country name to NA.
+        If country couldn't be determined by prefix, and IP or
+        DEBDIALER_COUNTRY variable was used, it mentions the same in brackets.
+        Also, sets country flag using country code.
+
+        Args :
+            pnum : PhoneNumber object
+            valid : bool variable. True when number is valid, else False.
+        """
         default = {"name": "NA", 'code': "NULL"}
         country = get_country(pnum.country_code) if valid else default
         flag_sp = ' ' * 20
@@ -115,6 +125,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setFlag(country['code'])
 
     def setFlag(self, code):
+        """Uses a country code to generate flag path. Sets FlagBox to flag."""
         FLAG_PATH = 'resources/flags/' + code + '-32.png'
         FULL_FLAG_PATH = resource_filename(__name__,FLAG_PATH)
         pixmap = QtGui.QPixmap(FULL_FLAG_PATH)
@@ -122,6 +133,14 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map["FlagBox"].setPixmap(pixmap)
 
     def setDetails(self):
+        """Gets phone number and sets details based on the number.
+        If number couldn't be parsed because of missing country code,
+            fetch default code using get_default_code()
+            set loc_setting to 'IP' if country was determined by IP address
+            set loc_setting to 'ENV' if country was determined by env variable
+        Set timezone, carrier and country values.
+        Format number as International Number and set it.
+        """
         number = self.getDialerNumber()
         try:
             x = parse(number)
@@ -144,14 +163,14 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         formatted = formatNum(x,'inter')
         self.setDialerNumber(formatted)
 
-    def setLocation(self, pnum):
-        num = self.getDialerNumber()
-
     def setCarrier(self, pnum, valid):
+        """Get carrier details of number and set in textbox."""
         carr = get_carrier(pnum) if valid else 'NA'
         self.object_map["Carrier"].setText('Carrier : ' + carr)
 
     def setTimezone(self, pnum, valid):
+        """If number is valid, display Timezone names and UTC offset.
+        Else, set Timezone to NA."""
         if valid:
             tz = get_timezone(pnum)[0] if valid else ''
             utcdelta = timezone(tz).utcoffset(datetime.now())
@@ -171,6 +190,7 @@ def main(num):
 
 
 if __name__ == '__main__':
+    """debdialer accepts phone number as optional argument."""
     parser = argparse.ArgumentParser(
         description='Arguments for calling dialer_main')
     parser.add_argument("-n", "--num", help="Number", type=str, default=None)
