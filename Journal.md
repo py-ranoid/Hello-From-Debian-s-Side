@@ -8,7 +8,7 @@ Note : Find project scrum board [here](https://storm.debian.net/grain/bD3aJdnYLB
 
 ## Installing SIP
 Download from here : https://riverbankcomputing.com/software/sip/download
-Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.html
+<br/>Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.html
 
 	wget https://sourceforge.net/projects/pyqt/files/sip/sip-4.19.7/sip-4.19.7.tar.gz
 	tar -xvzf sip-4.19.7.tar.gz
@@ -23,7 +23,7 @@ Installation instructions : http://pyqt.sourceforge.net/Docs/sip4/installation.h
 
 ## Installing PyQt4
 Download from here : https://riverbankcomputing.com/software/pyqt/download
-Installation instructions : http://pyqt.sourceforge.net/Docs/PyQt4/installation.html
+<br/>Installation instructions : http://pyqt.sourceforge.net/Docs/PyQt4/installation.html
 
 	wget http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12.1/PyQt4_gpl_x11-4.12.1.tar.gz
 	tar -xvzf PyQt4_gpl_x11-4.12.1.tar.gz
@@ -275,8 +275,21 @@ parse_file_for_nums('matcher_test.txt','IN')
 ---
 # Week 7
 ---
+# PyQt4 Installation
+- I had installed PyQt4 from source, as most guides suggested but @tlevine insisted on installing it with `apt`, which is significantly easier.
+- As a result, I am installing PyQt4 with
+```
+sudo apt install python3-pyqt4
+```
+- This automatically installs it in `/usr/lib/python3/dist-packages` for all users.
+- Cautionary note :
+	- If the PyQt4 module cannot be found even after installation,
+		- Run `/usr/bin/python3` instead on `python3`<br/> It's likely that you're running python from Anaconda
+		- Add `/usr/lib/python3/dist-packages` to `$PATH`
+
 # Packaging
 I had started this back in week 4 but I hadn't been able to complete because of some challenges I had encountered.
+
 - Finished porting the application from Python 2.7 to 3.6. (All work I had done in the first 3 weeks was in Python 2.7.)
 ‌- Added setup.py file to install the package
 - Used pkg_resources to access non-code files.
