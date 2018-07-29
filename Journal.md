@@ -406,5 +406,6 @@ Will pop up a notification to dial the number 9176119388, which when clicked, op
 kdeconnect-cli -d f69e2e8ac00b140d --ping-msg "::DIALER::ADD::9176119388::Vishal"
 ```
 Will pop up a notification to add a contact Vishal (9176119388), which when clicked, opens the add contact screen on the user's phone.
-
-![](http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Screenshot_20180715-190706.jpg)
+<br/>
+<br/>
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Screenshot_20180715-190706.jpg" width="400">
