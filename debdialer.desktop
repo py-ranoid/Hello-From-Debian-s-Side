@@ -2,9 +2,10 @@
 Version=1.0
 Name=Pop-Up Dialer
 Comment=An application to handle tel: URIs and dial numbers
-Exec=/usr/bin/python3 DEBDIALER_PATH/dialer_main.py
+Exec=debdialer
 Path=DEBDIALER_PATH
 Icon=DEBDIALER_PATH/Images/deblogo.png
 Terminal=false
 Type=Application
 Categories=Utility;Development;
+MimeType=x-scheme-handler/tel;x-scheme-handler/sip;text/x-vCard;
