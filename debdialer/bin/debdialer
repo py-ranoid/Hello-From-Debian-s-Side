@@ -1,0 +1,4 @@
+#!/usr/bin/env /usr/bin/python3
+
+import debdialer
+debdialer.cli_main( )
