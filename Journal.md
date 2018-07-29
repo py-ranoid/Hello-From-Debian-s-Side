@@ -210,13 +210,116 @@ I plan to display the following details of a phone number (presuming it is in E.
 
 ---
 # Week 5
-
 ---
 # Sorting out default country
 If the number isn't in E.164 format, libphonenumber can't accomplish much with the number.
 <br> Hence it's important to assign a default country code in such scenarios.
 
-## Using environment variables
-- Using `DEBDIALER_COUNTRY`
+## Option 1 : Using environment variables
+Using `DEBDIALER_COUNTRY`, an environment variable
 
-        export DEBDIALER_COUNTRY="IN"
+  	export DEBDIALER_COUNTRY="IN"				
+## Option 2 : Using a configuration file
+Found it a little redundant to create a config file for a single parameter.
+
+## Option 3 : Using the user's IP address
+- Initial approach :
+	- Extract the user's inet address from eth or wlo using netifaces *(but I later realized that this wasn't my public IP)*.
+	- Use [python-geoip](https://pythonhosted.org/python-geoip/) module to fetch the user's country code from IP address.
+There were a problems involved in installing this but it eventually worked it.
+- Final approach:
+	- Send a request to ipinfo.io.
+	- Though the response takes some time but it returns the country as well.
+
+---
+# Week 6
+---
+
+# Extracting Phone Numbers from files
+- Initially tried creating a regex pattern to identify numbers
+- Eventually decide to use PhoneNumberMatcher
+
+## Using PhoneNumberMatcher
+- Created a function : [parse_file_for_nums](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/blob/master/debdialer/fetch_details.py#L43)
+	- Accepts a file Path and country code (default code handled in Week 5)
+	- Reads the file
+	- Uses `PhoneNumberMatcher(text, country_code)` to parse file for phonenumbers
+		```
+		# Example
+
+		text = "Call me at 510-748-8230 if it's before 9:30, or on 703-4800500 after 10am."
+		country_code = "US"
+		matches = PhoneNumberMatcher(text, country_code)
+		# matches - a phonenumbers.phonenumbermatcher.PhoneNumberMatcher object
+		# Generator, not a list
+
+		for i in matches:
+   		print (i)
+
+		# OUT :
+		# PhoneNumberMatch [11,23) 510-748-8230
+		# PhoneNumberMatch [51,62) 703-4800500
+
+		```
+	- Format the number in international format and return list of numbers
+
+```
+# Usage
+from debdialer.fetch_details import parse_file_for_nums
+parse_file_for_nums('matcher_test.txt','IN')
+
+# OUT :
+# ['+919176119388', '+914422443565']
+```
+
+---
+# Week 7
+---
+# Packaging
+I had started this back in week 4 but I hadn't been able to complete because of some challenges I had encountered.
+- Finished porting the application from Python 2.7 to 3.6. (All work I had done in the first 3 weeks was in Python 2.7.)
+‌- Added setup.py file to install the package
+- Used pkg_resources to access non-code files.
+	- Resource files require a path to load
+	- Absolute path cannot be determined before installation or generalised since different users may install in different locations
+	```
+	from pkg_resources import resource_filename
+	FLAG_PATH = 'resources/flags/' + code + '-32.png'
+	FULL_FLAG_PATH = resource_filename(__name__,FLAG_PATH)
+	```
+- Added a desktop file to repository and bash commands for the user to add it to local applications
+	```
+	$ cat debdialer.desktop
+		[Desktop Entry]
+		Version=1.0
+		Name=Pop-Up Dialer
+		Comment=An application to handle tel: URIs and dial numbers
+		Exec=/usr/bin/python3 DEBDIALER_PATH/dialer_main.py
+		Path=DEBDIALER_PATH
+		Icon=DEBDIALER_PATH/Images/deblogo.png
+		Terminal=false
+		Type=Application
+		Categories=Utility;Development;
+
+	# Get path of debdialer.desktop after debdialer has been installed
+	$ DEBDIALER_PATH=`python3 -c 'import debdialer; print(debdialer.__path__[0])'`
+
+	# Replace path in debdialer.desktop
+	$ sed -i "s|DEBDIALER_PATH|$DEBDIALER_PATH|" "debdialer.desktop"
+
+	# Copy debdialer.desktop to /usr/share/applications/
+	$ sudo cp debdialer.desktop /usr/share/applications/debdialer.desktop
+	```
+	This needs to be worked on since running the command in the cloned repository will return the path of `debdialer` in the repository and the globally installed `debdialer`.
+- Added an XML file to handle tel: MIME links with xdg-mime. This requires loggin out and in back to refresh MIME links.
+```
+<?xml version="1.0"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+<mime-type type="x-scheme-handler/tel=debdialer.desktop">
+<comment>Invoking Debian Dialer</comment>
+<glob pattern="tel:*"/>
+</mime-type>
+</mime-info>
+```
+
+- Created a README for instructions to set up the above
