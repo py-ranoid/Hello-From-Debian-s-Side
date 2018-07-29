@@ -323,3 +323,88 @@ I had started this back in week 4 but I hadn't been able to complete because of 
 ```
 
 - Created a README for instructions to set up the above
+
+
+---
+# Weeks 8 & 9
+---
+One of the key elements of the proposal was to **link the desktop application to the user's phone**, since it's often the **primary device used to place calls** and store phone numbers.
+
+# Experiments with kdeconnect
+
+## About kde-connect
+- Developed by KDE
+- Github repositories are mirrors. Development on [phabricator](https://phabricator.kde.org/project/view/159/)
+- Desktop application
+	- Github repository : [https://github.com/KDE/kdeconnect-kde](https://github.com/KDE/kdeconnect-kde)
+	- Desktop code: [https://cgit.kde.org/kdeconnect-kde.git](https://cgit.kde.org/kdeconnect-kde.git)
+	- Written in C++. Kirigami used for GUI
+	- **Installation**
+	```
+	sudo apt install kdeconnect indicator-kdeconnect
+	```
+- Android application :
+	- Github repository : [https://github.com/KDE/kdeconnect-android](https://github.com/KDE/kdeconnect-android)
+	-  Android code: [https://cgit.kde.org/kdeconnect-android.git](https://cgit.kde.org/kdeconnect-android.git)
+	- Java, Gradle, Android
+- Connects a desktop with one's Android phone using a desktop application and a Android application installed on devices on the same LAN, communicating using a TCP socket.
+- Existing features :
+	- File sharing
+	- Virtual touchpad
+	- Notification sync
+	- Shared clipboard, etc.
+
+## Features I wanted to add to the KDE-connect App
+- Send phone numbers to Android phone to dial
+- Add contacts on Android Phone
+
+Note : A part of their application was also supposed to be capable of handling tel links but it wasn't getting installed as a part as the debian package. It seems like a bug. I tried making changes to their desktop application but their debian package is significantly behind their development branch and I had some issues building their desktop application.
+
+## Issues with adding a new plugin to their desktop application
+- **Unable to install dependencies**
+	- Requires a numbers of libraries from KDE's framework
+	- Debian package is at version 1.0, while development is at 1.3.x
+	- Hence `sudo apt build-dep kdeconnect` installs v5.18.0 but in order to build the application, I need v5.42.0
+	- I tried reducing the minimum version requirements but `build-dep` doesn't download `KF5Wayland` and `KF5` and I get the following error.
+
+	```
+	-- The following OPTIONAL packages have not been found:
+ 	* KF5Wayland (required version >= 5.18.0)
+
+	-- The following REQUIRED packages have not been found:
+
+ 	* KF5 (required version >= 5.18.0)
+
+	CMake Error at /usr/share/cmake-3.5/Modules/FeatureSummary.cmake:556 (message):
+  feature_summary() Error: REQUIRED package(s) are missing, aborting CMake
+  run.
+	Call Stack (most recent call first):
+  CMakeLists.txt:71 (feature_summary)
+
+	-- Configuring incomplete, errors occurred!
+	See also 	"/home/b/gitpository/kdeconnect-kde/build/CMakeFiles/CMakeOutput.log".
+	```
+- Updated application would have to also be add to debian archives, since build the application is clearly not an ideal options.
+- I did try adding a new plugin in vain, but then I couldn't build the application.
+
+## Workaround
+- Hence I improvised and used a feature of their cli called `--ping-msg` which was meant to send a String to the android application and display the same with a Notifcation.
+- Made changes to their Android application in order to parse ping messages starting with ::DIALER with another function,[ dialer_handler](https://github.com/py-ranoid/kdeconnect-android/blob/master/src/org/kde/kdeconnect/Plugins/PingPlugin/PingPlugin.java#L106).
+- I am now sending information through to the android application by seperating arguments with ::
+- I tried pushing this change to kdeconnect's Android repository but the admins insisted on making a new plugin on the desktop application, which is cleaner but might take longer, hence I decided to complete this after the GSoC Period.<br>
+https://phabricator.kde.org/D14248
+- I'm pushing changes to my Github fork of kdeconnect-android : [https://github.com/py-ranoid/kdeconnect-android](https://github.com/py-ranoid/kdeconnect-android)
+
+
+## Result
+```
+kdeconnect-cli -d f69e2e8ac00b140d --ping-msg "::DIALER::DIAL::9176119388"
+```
+Will pop up a notification to dial the number 9176119388, which when clicked, opens a dialer
+
+```
+kdeconnect-cli -d f69e2e8ac00b140d --ping-msg "::DIALER::ADD::9176119388::Vishal"
+```
+Will pop up a notification to add a contact Vishal (9176119388), which when clicked, opens the add contact screen on the user's phone.
+
+![](http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Screenshot_20180715-190706.jpg)
