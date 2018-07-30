@@ -183,17 +183,18 @@ class Ui_Dialog(object):
         self.pushButton_10.setText(_translate("Dialog", "#", None))
         self.pushButton_11.setText(_translate("Dialog", "*", None))
         self.pushButton_12.setText(_translate("Dialog", "0 | +", None))
-        self.pushButton_14.setText(_translate("Dialog", "Open Contact", None))
-        self.pushButton_15.setText(_translate(
-            "Dialog", "Open File", None))
-        self.pushButton_16.setText(_translate(
-            "Dialog", "Add to Contacts", None))
+        self.pushButton_14.setText(_translate("Dialog",
+                                              "Add vcard to Contacts", None))
+        self.pushButton_15.setText(_translate("Dialog",
+                                              "Open File", None))
+        self.pushButton_16.setText(_translate("Dialog",
+                                              "Add to Contacts", None))
         self.label.setText(_translate("Dialog", "Location :  NA", None))
         self.label_2.setText(_translate("Dialog", "Carrier : NA", None))
         self.label_3.setText(_translate("Dialog", "Timezone : NA", None))
         self.pushButton_17.setText(_translate(
-            "Dialog", "SEND TO ANDROID PHONE", None))
+            "Dialog", "DIAL ON ANDROID PHONE", None))
         self.pushButton_18.setText(_translate(
-            "Dialog", "CALL with sipdial", None))
+            "Dialog", "CALL with VoIP", None))
         self.pushButton_13.setText(_translate("Dialog", "DEL", None))
         self.label_4.setText(_translate("Dialog", "  ", None))

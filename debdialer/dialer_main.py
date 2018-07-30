@@ -7,6 +7,7 @@ from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
 from .fetch_details import get_timezone, get_carrier, formatNum, get_country,parse_file_for_nums
 from .utils import get_default_code
+from .kdeconnect_utils import check_kdeconnect,get_devices
 from pytz import timezone
 from datetime import datetime
 from pkg_resources import resource_filename
@@ -35,6 +36,16 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
         self.setDetails()
         self.ignore = False
+
+        self.kdeconnect = check_kdeconnect()
+        self.kdeconnect_buttons = ["Send2Android","VcardUpload","ContactUpload"]
+        if self.kdeconnect:
+            self.kdeconnect_devices = get_devices()
+        else:
+            self.kdeconnect_devices = None
+            for button in self.kdeconnect_buttons:
+                button.setEnabled = False
+
 
     def num_changed(self):
         """Triggered when number in TextBox is changed"""
@@ -77,6 +88,10 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
                            "Location": self.label,
                            "FlagBox": self.label_4,
                            "FileButton":self.pushButton_15,
+                           "Send2Android":self.pushButton_17,
+                           "VoIPButton":self.pushButton_18,
+                           "VcardUpload":self.pushButton_14,
+                           "ContactUpload":self.pushButton_16,
                            }
 
     def getDialerNumber(self):
