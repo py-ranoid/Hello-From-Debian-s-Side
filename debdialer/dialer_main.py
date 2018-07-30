@@ -7,7 +7,7 @@ from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
 from .fetch_details import get_timezone, get_carrier, formatNum, get_country,parse_file_for_nums
 from .utils import get_default_code
-from .kdeconnect_utils import check_kdeconnect,get_devices
+from .kdeconnect_utils import check_kdeconnect,get_devices,dialer_send,dialer_add
 from pytz import timezone
 from datetime import datetime
 from pkg_resources import resource_filename
@@ -32,6 +32,8 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
 
         self.object_map["FileButton"].clicked.connect(self.file_nums)
         self.object_map["DelButton"].clicked.connect(self.del_action)
+        self.object_map['Send2Android'].clicked.connect(self.kdeconnect_dial)
+        
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
         self.setDetails()
@@ -40,12 +42,19 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.kdeconnect = check_kdeconnect()
         self.kdeconnect_buttons = ["Send2Android","VcardUpload","ContactUpload"]
         if self.kdeconnect:
+            print ("kdeconnect found.\n fetching device list")
             self.kdeconnect_devices = get_devices()
+            print ("devices found :",self.kdeconnect_devices)
+            self.default_device_name = list(self.kdeconnect_devices.keys())[0]
         else:
             self.kdeconnect_devices = None
             for button in self.kdeconnect_buttons:
                 button.setEnabled = False
 
+    def kdeconnect_dial(self):
+        if self.kdeconnect:
+            number = self.getDialerNumber()
+            dialer_send(number,self.kdeconnect_devices[self.default_device_name])
 
     def num_changed(self):
         """Triggered when number in TextBox is changed"""
@@ -81,7 +90,6 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
 
         self.object_map = {"NumTextBox": self.plainTextEdit,
                            "NumButtons": self.btn_list,
-                           "Location": self.label,
                            "Carrier": self.label_2,
                            "Timezone": self.label_3,
                            "DelButton": self.pushButton_13,
