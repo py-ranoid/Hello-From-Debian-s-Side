@@ -6,12 +6,11 @@ from .design import Ui_Dialog
 from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
 from .fetch_details import get_timezone, get_carrier, formatNum, get_country,parse_file_for_nums
-from .utils import get_default_code
+from .utils import get_default_code,parse_vcard
 from .kdeconnect_utils import check_kdeconnect,get_devices,dialer_send,dialer_add
 from pytz import timezone
 from datetime import datetime
 from pkg_resources import resource_filename
-
 
 class DialerApp(QtGui.QDialog, Ui_Dialog):
     def __init__(self, num):
@@ -33,7 +32,8 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map["FileButton"].clicked.connect(self.print_file_nums)
         self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['Send2Android'].clicked.connect(self.kdeconnect_dial)
-        self.object_map['ContactUpload'].textChanged.connect(self.send_contact)
+        self.object_map['ContactUpload'].clicked.connect(self.send_contact)
+        self.object_map['VcardUpload'].clicked.connect(self.send_contact_file)
 
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
@@ -58,6 +58,22 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             return text
         else:
             return None
+
+    def send_contact_file(self):
+        filepath = self.choose_file()
+        if filepath.endswith('.vcard') or filepath.endswith('.vcf'):
+            name,nums = parse_vcard(filepath)
+        else:
+            nums = self.get_file_nums(filepath)
+            name = self.get_contact_name()
+            if name is None:
+                print ("Name is None")
+                return
+        if self.kdeconnect:
+            device_id = self.kdeconnect_devices[self.default_device_name]
+            dialer_add(nums[:3],name,device_id)
+
+
     def send_contact(self):
         if self.kdeconnect:
             number = self.getDialerNumber()
