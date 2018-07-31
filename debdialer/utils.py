@@ -1,5 +1,6 @@
 import os
 import json
+import vobject
 from urllib3 import PoolManager,exceptions
 
 def country_code_mapper(source='./resources/CountryCodes.json', destination='DialerCodes.json'):
@@ -54,3 +55,11 @@ def get_default_code():
         if ip_result is not None:
             return (ip_result,1)
     return (None,None)
+
+def parse_vcard(filepath):
+    with open(filepath,'r') as vcard_file:
+        text = vcard_file.read()
+    vcard = vobject.readOne(text)
+    name = vcard.getChildValue('fn')
+    numbers = [x.value for x in vcard.tel_list]
+    return name,numbers
