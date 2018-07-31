@@ -33,7 +33,8 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map["FileButton"].clicked.connect(self.file_nums)
         self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['Send2Android'].clicked.connect(self.kdeconnect_dial)
-        
+        self.object_map['ContactUpload'].textChanged.connect(self.send_contact)
+
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
         self.setDetails()
@@ -50,6 +51,15 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             self.kdeconnect_devices = None
             for button in self.kdeconnect_buttons:
                 button.setEnabled = False
+
+    def send_contact(self):
+        if self.kdeconnect:
+            number = self.getDialerNumber()
+            name = "Alpha"
+            device_id = self.kdeconnect_devices[self.default_device_name]
+            dialer_add([number],name,device_id)
+        else:
+            print ("kdeconnect not found")
 
     def kdeconnect_dial(self):
         if self.kdeconnect:
@@ -72,6 +82,13 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         Returns path of file"""
         filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '/')
         return filepath
+
+    def get_file_nums(self):
+        """Prints list of all numbers in a file"""
+        filepath = self.choose_file()
+        country_code = get_default_code()
+        country_code = 'IN' if country_code[0] is None else country_code[0]
+        return parse_file_for_nums(filepath,country_code)
 
     def file_nums(self):
         """Prints list of all numbers in a file"""

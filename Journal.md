@@ -110,7 +110,7 @@ Hence the required XML file for
 	<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
 		<mime-type type="x-scheme-handler/tel=debdialer.desktop">
 			<comment>Invoking Debian Dialer</comment>
-			<glob pattern="tel:*"/>
+			<glob pattern="tel:\*"/>
 		</mime-type>
 	</mime-info>
 
@@ -325,14 +325,15 @@ I had started this back in week 4 but I hadn't been able to complete because of 
 	```
 	This needs to be worked on since running the command in the cloned repository will return the path of `debdialer` in the repository and the globally installed `debdialer`.
 - Added an XML file to handle tel: MIME links with xdg-mime. This requires loggin out and in back to refresh MIME links.
+
 ```
-<?xml version="1.0"?>
-<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
-<mime-type type="x-scheme-handler/tel=debdialer.desktop">
-<comment>Invoking Debian Dialer</comment>
-<glob pattern="tel:*"/>
-</mime-type>
-</mime-info>
+	<?xml version="1.0"?>
+	<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+	<mime-type type="x-scheme-handler/tel=debdialer.desktop">
+	<comment>Invoking Debian Dialer</comment>
+	<glob pattern="tel:*"/>
+	</mime-type>
+	</mime-info>
 ```
 
 - Created a README for instructions to set up the above
