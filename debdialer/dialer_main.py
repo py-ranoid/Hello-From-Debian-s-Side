@@ -52,10 +52,18 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             for button in self.kdeconnect_buttons:
                 button.setEnabled = False
 
+    def get_contact_name(self):
+        text, ok = QtGui.QInputDialog.getText(self, 'Add Contact', 'Contact name:')
+        if ok:
+            return text
+        else:
+            return None
     def send_contact(self):
         if self.kdeconnect:
             number = self.getDialerNumber()
-            name = "Alpha"
+            name = self.get_contact_name()
+            if name is None:
+                return
             device_id = self.kdeconnect_devices[self.default_device_name]
             dialer_add([number],name,device_id)
         else:
