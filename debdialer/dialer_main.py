@@ -30,7 +30,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         for val, bt in zip(num_list, self.btn_list):
             bt.clicked.connect(partial(self.click_action, val))
 
-        self.object_map["FileButton"].clicked.connect(self.file_nums)
+        self.object_map["FileButton"].clicked.connect(self.print_file_nums)
         self.object_map["DelButton"].clicked.connect(self.del_action)
         self.object_map['Send2Android'].clicked.connect(self.kdeconnect_dial)
         self.object_map['ContactUpload'].textChanged.connect(self.send_contact)
@@ -83,19 +83,17 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         filepath = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '/')
         return filepath
 
-    def get_file_nums(self):
+    def get_file_nums(self,filepath):
         """Prints list of all numbers in a file"""
-        filepath = self.choose_file()
         country_code = get_default_code()
         country_code = 'IN' if country_code[0] is None else country_code[0]
         return parse_file_for_nums(filepath,country_code)
 
-    def file_nums(self):
+    def print_file_nums(self):
         """Prints list of all numbers in a file"""
         filepath = self.choose_file()
-        country_code = get_default_code()
-        country_code = 'IN' if country_code[0] is None else country_code[0]
-        print (parse_file_for_nums(filepath,country_code))
+        nums = self.get_file_nums(filepath)
+        print (nums)
 
     def objectMapSetup(self):
         """Creates object_map. Maps human-readable object name to object"""
