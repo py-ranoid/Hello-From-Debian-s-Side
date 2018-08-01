@@ -195,6 +195,6 @@ class Ui_Dialog(object):
         self.pushButton_17.setText(_translate(
             "Dialog", "DIAL ON ANDROID PHONE", None))
         self.pushButton_18.setText(_translate(
-            "Dialog", "CALL with VoIP", None))
+            "Dialog", "CALL with VoIP/sip", None))
         self.pushButton_13.setText(_translate("Dialog", "DEL", None))
         self.label_4.setText(_translate("Dialog", "  ", None))
