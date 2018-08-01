@@ -12,6 +12,7 @@ setup(name='debdialer',
       install_requires=[
           'pytz',
           'phonenumbers',
+          'vobject'
       ],
       # scripts=['bin/funniest-joke'],
       entry_points = {

@@ -50,6 +50,10 @@ export DEBDIALER_COUNTRY='IN'
 ### [kdeconnect](https://github.com/KDE/kdeconnect-android/)
 - License : [GPL-2.0](https://github.com/KDE/kdeconnect-android/blob/master/COPYING)
 
+### [vobject](https://github.com/eventable/vobject)
+- License : [Apache-2.0](https://github.com/eventable/vobject/blob/master/LICENSE-2.0.txt)
+- Copyright : NA
+
 # Setting up KDE-Connect
 Download apk here : [tiny.cc/ddial-kdeconnect](tiny.cc/ddial-kdeconnect)
 <br/>
