@@ -1,3 +1,5 @@
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/PrimaryDesk.png" align="center">
+
 ### How to install
 ```
 # Installing Qt4
@@ -47,3 +49,46 @@ export DEBDIALER_COUNTRY='IN'
 
 ### [kdeconnect](https://github.com/KDE/kdeconnect-android/)
 - License : [GPL-2.0](https://github.com/KDE/kdeconnect-android/blob/master/COPYING)
+
+# Setting up KDE-Connect
+Download apk here : [tiny.cc/ddial-kdeconnect](tiny.cc/ddial-kdeconnect)
+<br/>
+### Installing the apk
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-1.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-2.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-3.jpg" width="200">
+
+### Setting up KDE-Connect
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-4.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-5.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-6.jpg" width="200">
+
+# Usage
+## Adding contact using .vcf file (`Add vcard to Contacts`)
+#### Selecting vcf file on Debdialer
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContFileDesk-1.png" width="400">
+
+#### Adding contact on Android Phone
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContFileApp-1.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContFileApp-2.jpg" width="200">
+
+## Adding number in dialer as contact (`Add to Contacts`)
+#### Selecting vcf file on Debdialer
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContactDesk-1.png" width="400">
+
+#### Adding contact on Android Phone
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContactApp-1.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContactApp-2.jpg" width="200">
+
+## Sending dialer number to Android phone (`DIAL ON ANDROID PHONE`)
+
+#### Notification on Android Phone
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/DialApp-1.jpg" width="200">
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/DialApp-2.jpg" width="200">
+
+## Parsing numbers from file (`Open File`)
+#### Choosing File
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/OpenFile-1.png" width="400">
+<br/>
+#### Printing list of numbers
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/OpenFile-2.png" width="400">
