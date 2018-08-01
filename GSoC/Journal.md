@@ -561,6 +561,7 @@ entry_points = {
 	- Installation : `sudo apt install ekiga`
 	- GUI for configuration
 	- Call URL with ekiga : `ekiga -c URL`
+
 ---
 # Week 12
 ---
@@ -618,6 +619,7 @@ Both use `kdeconnect_utils.dialer_add` to create a contact on a specific device 
 	- Get contents of file and parse for phone numbers
 	- Print to STDOUT
 	- Wasn't sure how to display a list with the existing GUI
+
 # Publishing `debdialer`
 ### Setting up your account on PyPi
 - If you don't have an account, create one here : [https://pypi.org/account/register/](https://pypi.org/account/register/)
