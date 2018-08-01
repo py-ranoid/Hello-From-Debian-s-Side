@@ -503,3 +503,118 @@ Country :India(IP)
 Flag :/home/b/gitpository/DebianDialer/debdialer/resources/flags/IN-32.png
 Formatted :+91 91761 19388
 ```
+
+---
+# Week 11
+---
+# Adding Licenses
+
+- Added [**GNU Affero General Public License v3.0**](https://choosealicense.com/licenses/agpl-3.0/) to debdialer
+	<br> License : https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/blob/master/LICENSE
+- Mentioned licenses of modules used in debdialer
+	- python-phonenumbers : Used it to parse phone numbers
+	- Country Codes : A Github Gist. Used to it get Country Code from Dialer Code
+	- countries : A Github repository with data about countries. Used it for flags
+	- kdeconnect : Modified android application to send phone numbers and add contacts
+	- vobject : Used it to parse .vcf files
+
+- Experimenting with sipclients
+	- Ekiga
+	- pjsua
+
+# Added MIME-type to desktop file
+- Was initially using xdg-mime to setup trigger debdialer
+- Added MimeType to desktop file
+```
+	MimeType=x-scheme-handler/tel;x-scheme-handler/sip;text/x-vCard;
+```
+	- `x-scheme-handler/tel` : `tel:` links
+	- x-scheme-handler/sip : `sip:` links
+	- text/x-vCard : `.vcf` files
+
+# Adding `entry_point` for `debdialer`
+## Aim
+- Create a command-line application for `debdialer`
+- `debdialer <args>` instead of `python3 -m debdialer <args>`
+- Seperate code so it could be run with `__init__.py` and `__main__.py`
+	- `__init__.py` : Run when you import a package into a running python program.
+	- `__main__.py` : Run as `'__main__'` when we run package is as the main program (`python -m modulename`).
+
+## Changes made
+- Since `DialerApp` and `main()` was in `__main__`, they couldn't be imported
+- Moved `DialerApp` and `main()` to a new script : `dialer_main.py`
+- Create `__init__` with `cli_main()` that would call `.dialer_main.main`
+- Changed `__main__` to would call `.dialer_main.main` when `__name__` was equal to `'__main__'`
+- Finally, add a console_script : `debdialer`, that would call `debdialer:cli_main`
+```
+entry_points = {
+			'console_scripts': ['debdialer=debdialer:cli_main'],
+	},
+```
+
+# Exploring [SoftPhones](https://wiki.voip.ms/article/Softphones)
+- `pjsua` :
+	- Works from the terminal.
+	- No GUI
+	- Needs to be installed from source
+- `Ekiga` :
+	- Installation : `sudo apt install ekiga`
+	- GUI for configuration
+	- Call URL with ekiga : `ekiga -c URL`
+---
+# Week 12
+---
+# vcard parsing
+## Aim
+- Extracting phone numbers and name from vcard (`.vcf`) file
+- Send contact to Android phone
+
+## Execution
+- Using a 3rd party module : [vobject](https://github.com/eventable/vobject)
+-	Read contents of vcard file to `text`
+- Parse vcard contents with `vobject`
+	```
+	vcard = vobject.readOne(text)
+	```
+	Each item/value in vcard becomes a child of `vcard` object
+- Get value of FullName (`fn`) child
+	```
+	name = vcard.getChildValue('fn')
+	```
+-	- Get list of telephone numbers (children) with `vcard.tel_list`
+	- Get value of each phone number
+```
+numbers = [x.value for x in vcard.tel_list]
+```
+
+# Connecting GUI buttons to added features
+## Adding Contacts to Phone
+There are two approaches to sending a sending a contact.
+Both use `kdeconnect_utils.dialer_add` to create a contact on a specific device (`device_id`) under a given `name` with given `numbers` (which is a list, 1 <= length <= 3)
+
+### Sending number in Dialer (`Add to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#adding-number-in-dialer-as-contact-add-to-contacts))
+- Read number in `NumTextBox`
+- Open a `QInputDialog` to get contact name
+- Return if user clicked on *Cancel*
+- If user clicked on *OK*, send number to phone with `kdeconnect_utils.dialer_add`
+
+### Sending numbers in a file as contact (`Add vcard to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#adding-contact-using-vcf-file-add-vcard-to-contacts))
+- If file name ends with `.vcf` (ie. vcard file)
+	- Call `utils.parse_vcard` to fetch `name` and `numbers` from file
+	- Send number to phone with `kdeconnect_utils.dialer_add`
+- else,
+	- Call `get_file_nums` to parse phone numbers from chosen file
+	- Open a `QInputDialog` to get contact name
+	- Return if user clicked on *Cancel*
+	- If user clicked on *OK*, send number to phone with `kdeconnect_utils.dialer_add`
+
+## Sending number in Dialer to dial on Phone (`DIAL ON ANDROID PHONE`)([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#sending-dialer-number-to-android-phone-dial-on-android-phone))
+- Read number in `NumTextBox`  using `getDialerNumber()`
+- Uses `kdeconnect_utils.dialer_send` to send the given `number` to a specific device (`device_id`)
+
+## Parse phone numbers in a File ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#parsing-numbers-from-file-open-file))
+- Calls `print_file_nums`
+	- Open a dialog to choose a file
+	- Get contents of file and parse for phone numbers
+	- Print to STDOUT
+	- Wasn't sure how to display a list with the existing GUI
