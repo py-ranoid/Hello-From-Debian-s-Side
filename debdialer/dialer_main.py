@@ -45,12 +45,23 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         if self.kdeconnect:
             print ("kdeconnect found.\n fetching device list")
             self.kdeconnect_devices = get_devices()
-            print ("devices found :",self.kdeconnect_devices)
-            self.default_device_name = list(self.kdeconnect_devices.keys())[0]
+            if len(self.kdeconnect_devices) == 0:
+                self.kdeconnect = False
+                self.kdeconnect_devices = None
+                print ("no devices found :")
+                self.disable_buttons(self.kdeconnect_buttons)
+            else:
+                print ("devices found :",self.kdeconnect_devices)
+                self.default_device_name = list(self.kdeconnect_devices.keys())[0]
         else:
             self.kdeconnect_devices = None
-            for button in self.kdeconnect_buttons:
-                button.setEnabled = False
+            self.disable_buttons(self.kdeconnect_buttons)
+
+    def disable_buttons(self,button_names):
+        for button_name in button_names:
+            button = self.object_map[button_name]
+            button.setEnabled(False)
+            button.setStyleSheet("background-color: rgb(222, 222, 222); color : grey;")
 
     def get_contact_name(self):
         text, ok = QtGui.QInputDialog.getText(self, 'Add Contact', 'Contact name:')
