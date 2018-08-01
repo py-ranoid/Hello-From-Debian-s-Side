@@ -16,7 +16,7 @@ class NormalInstall(install):
         install.run(self)
 
 setup(name='debdialer',
-      version='0.15',
+      version='0.16',
       description='Click-to-dial pop-up window.',
       url='https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side',
       author='Vishal Gupta',
