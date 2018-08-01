@@ -72,17 +72,18 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
 
     def send_contact_file(self):
         filepath = self.choose_file()
-        if filepath.endswith('.vcard') or filepath.endswith('.vcf'):
-            name,nums = parse_vcard(filepath)
-        else:
-            nums = self.get_file_nums(filepath)
-            name = self.get_contact_name()
-            if name is None:
-                print ("Name is None")
-                return
-        if self.kdeconnect:
-            device_id = self.kdeconnect_devices[self.default_device_name]
-            dialer_add(nums[:3],name,device_id)
+        if filepath:
+            if filepath.endswith('.vcard') or filepath.endswith('.vcf'):
+                name,nums = parse_vcard(filepath)
+            else:
+                nums = self.get_file_nums(filepath)
+                name = self.get_contact_name()
+                if name is None:
+                    print ("Name is None")
+                    return
+            if self.kdeconnect:
+                device_id = self.kdeconnect_devices[self.default_device_name]
+                dialer_add(nums[:3],name,device_id)
 
 
     def send_contact(self):
@@ -127,8 +128,9 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
     def print_file_nums(self):
         """Prints list of all numbers in a file"""
         filepath = self.choose_file()
-        nums = self.get_file_nums(filepath)
-        print (nums)
+        if filepath:
+            nums = self.get_file_nums(filepath)
+            print (nums)
 
     def objectMapSetup(self):
         """Creates object_map. Maps human-readable object name to object"""
