@@ -1,7 +1,17 @@
 <img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/PrimaryDesk.png" align="center">
 
-### How to install
+# Installation
+## Install with pip3
 ```
+sudo pip3 install debdialer
+sudo wget https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master/Images/deblogo-128.png -O /usr/share/icons/hicolor/128x128/apps/deblogo-128.png
+sudo wget https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master/debdialer.desktop -O /usr/share/applications/debdialer.desktop
+sudo update-desktop-database /usr/share/applications/
+```
+
+## Install from source
+```
+# After cloning https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master
 # Single command
 sudo python3 setup.py full-install
 ```
