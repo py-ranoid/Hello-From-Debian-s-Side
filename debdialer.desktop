@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=1.6
+Version=1.8
 Name=Pop-Up Dialer
 Comment=An application to handle tel: URIs and dial numbers
 Exec=debdialer -u %u

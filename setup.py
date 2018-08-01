@@ -15,9 +15,14 @@ class NormalInstall(install):
     def run(self):
         install.run(self)
 
+with open('README.md') as readme_file:
+    readme_contents = readme_file.read()
+
 setup(name='debdialer',
-      version='0.16',
+      version='0.171',
       description='Click-to-dial pop-up window.',
+      long_description = readme_contents,
+      long_description_content_type="text/markdown",
       url='https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side',
       author='Vishal Gupta',
       author_email='vishalg8897@gmail.com',
@@ -40,4 +45,22 @@ setup(name='debdialer',
         'full-install': InstallWithQt,
         'install': NormalInstall,
         },
+    classifiers=(
+        "License :: OSI Approved :: GNU Affero General Public License v3",
+        "Natural Language :: English",
+        "Operating System :: POSIX :: Linux",
+        'Programming Language :: Python :: 3.0',
+        'Programming Language :: Python :: 3.1',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3 :: Only',
+        'Topic :: Communications :: Telephony',
+        'Topic :: Communications :: Internet Phone',
+        'Topic :: Utilities'
+
+    )
+
       )
