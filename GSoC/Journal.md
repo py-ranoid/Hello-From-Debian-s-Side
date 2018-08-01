@@ -423,3 +423,83 @@ Will pop up a notification to add a contact Vishal (9176119388), which when clic
 <br/>
 <br/>
 <img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Screenshot_20180715-190706.jpg" width="400">
+---
+# Week 10
+---
+Since I had to write code to get the default country by sending a get request to ipinfo.io, *@tlevine* suggested developing a module with additional functionality.
+# [`ipinfo`](https://salsa.debian.org/comfortablydumb-guest/ipinfo)
+## About
+- Python Module to fetch information about user using IP address
+- *Python wrapper for [ipinfo.io](ipinfo.io) API*
+- Uses `urllib3` to send requests
+
+## Options
+- `cn` : Get Country Name only
+- `cc` : Get Country Code only
+- `ct` : Get City only
+- `rg` : Get Region only
+- `ls` : Get location as a string
+- `lc` : Get coordinates
+- `ip` : Get IP Address only
+- `hn` : Get Host Name only
+- `a`  : Get all details.
+
+## Usage
+- Can be used with **Command Line Interface**
+	```
+	  $ python3 -m ipinfo
+	  {'loc': '13.0833,80.2833', 'country': 'IN', 'org': 'AS24309 Atria Convergence Technologies Pvt. Ltd.  Broadband Internet Service Provider INDIA', 'region': 'Tamil Nadu', 'city': 'Chennai', 'ip': '123.123.123.123', 'postal': '600003'}
+
+	  $ python3 -m ipinfo cc
+	  IN
+
+	  $ python3 -m ipinfo ls
+	  Tamil Nadu, Chennai, India
+
+	```
+- Or **imported as a module**
+	```
+	from ipinfo.ipinfo import get_country_name,get_all
+
+	print (get_country_name())
+	# Chennai
+
+	print (get_all())
+	# {'city': 'Chennai',
+	# 'region': 'Tamil Nadu',
+	# 'ip': '123.123.123.123',
+	# 'hostname': 'broadband.actcorp.in',
+	# 'org': 'AS24309 Atria Convergence Technologies Pvt. Ltd.  Broadband Internet Service Provider INDIA',
+	# 'postal': '600003',
+	# 'country': 'IN',
+	# 'loc': '13.0833,80.2833'}
+	```
+
+## Publishing
+- Tried publishing module on pypi by following [this](https://python-packaging.readthedocs.io/en/latest/minimal.html)
+- `python3 setup.py register` resulted in `Server response (308): Redirect to Primary Domain`
+
+# Command Line Interfaces for other functions
+## Why
+- The debdialer application requires Qt5.
+- Some users may not comfortable with using a GUI and prefer a terminal-based application, or something with minimal reliance on the mouse
+- @tlevine suggeted using
+
+## CLI for phonenumber functions (`pn-cli.py`)
+
+### To parse file for phone numbers
+```
+$ python3 pn-cli.py -f matcher_test.txt
+Parsing matcher_test.txt for numbers. Code : IN
++919176119388
++914422443565
+```
+### To parse phone number to extract details
+```
+$ python3 pn-cli.py -p 9176119388
+Timezone : Asia/Calcutta | UTC+5.5
+Carrier : Vodafone
+Country :India(IP)
+Flag :/home/b/gitpository/DebianDialer/debdialer/resources/flags/IN-32.png
+Formatted :+91 91761 19388
+```
