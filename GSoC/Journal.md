@@ -667,3 +667,26 @@ python3 -m pip install --user --upgrade twine
 	Uploading debdialer-0.15.tar.gz
 	100%|███████████████████████████████████████████| 14.8k/14.8k [00:00<00:00, 15.4kB/s]
 	```
+
+# Desktop File changes
+- **Icon**
+	- Before:
+		- Creating a copy of icon while installing debdialer
+		- Assigning path of Icon in desktop file to Absolute path of installed icon
+		- This required fetching `debdialer` path after installation.
+		- Couldn't be automated with `setup.py` installation
+	- Now :
+		- Using `data_files` in `setup.py` to copy `Images/deblogo-128.png` to `/usr/share/icons/hicolor/128x128/apps`
+		- Setting Icon path to `/usr/share/icons/hicolor/128x128/apps/deblogo-128.png` by default
+- **Path**
+	- Removed Path parameter
+- **Desktop File path**
+	- Before :
+	 	- Was copying `debdialer.desktop` to `/usr/share/applications/` with `cp`
+	- Now :
+	- Using `data_files` in `setup.py` to copy `debdialer.desktop` to `/usr/share/applications/`
+- Changed `Exec` to accomodate a URL as an argument
+	- Before : `Exec=debdialer`
+	- Now : `Exec=debdialer -u %u`
+		- %u - A single URL
+		- Refer [this](https://developer.gnome.org/desktop-entry-spec/#exec-variables) for Exec variables
