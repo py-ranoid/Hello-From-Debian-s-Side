@@ -1,3 +1,4 @@
 debdialer.egg-info/*
 debdialer/__pycache__/*
 *.pyc
+build/*
