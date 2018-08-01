@@ -618,3 +618,52 @@ Both use `kdeconnect_utils.dialer_add` to create a contact on a specific device 
 	- Get contents of file and parse for phone numbers
 	- Print to STDOUT
 	- Wasn't sure how to display a list with the existing GUI
+# Publishing `debdialer`
+### Setting up your account on PyPi
+- If you don't have an account, create one here : [https://pypi.org/account/register/](https://pypi.org/account/register/)
+- Adding your credentials on your desktop : Create `~/.pypirc`.
+  (Refer [this](https://docs.python.org/3/distutils/packageindex.html#pypirc))
+	<br>Contents of ~/.pypirc :
+	```
+	[distutils]
+	index-servers =
+	    pypi
+
+	[pypi]
+	repository: https://upload.pypi.org/legacy/
+	username: vishalgupta
+	password: <enter password here>
+	```
+
+### Uploading your package
+- Make sure you have the latest versions of setuptools and wheel installed:
+```
+python3 -m pip install --user --upgrade setuptools wheel
+```
+- Run this command from the same directory where setup.py is located.
+```
+python3 setup.py sdist bdist_wheel
+```
+This should have created a `dist/` directory that contains a `.whl` file and `.tar.gz`
+
+		$ ls dist
+		debdialer-0.15-py3-none-any.whl  debdialer-0.15.tar.gz
+- Install **twine** to upload package
+```
+python3 -m pip install --user --upgrade twine
+```
+- Uploading packages with twine
+	```
+	$ twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+
+	# If the above command doesn't work, try this (I used the below command)
+
+	$ python3 -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+	Uploading distributions to https://upload.pypi.org/legacy/
+	Enter your username: vishalgupta
+	Enter your password:
+	Uploading debdialer-0.15-py3-none-any.whl
+	100%|█████████████████████████████████████████████| 277k/277k [00:04<00:00, 69.2kB/s]
+	Uploading debdialer-0.15.tar.gz
+	100%|███████████████████████████████████████████| 14.8k/14.8k [00:00<00:00, 15.4kB/s]
+	```
