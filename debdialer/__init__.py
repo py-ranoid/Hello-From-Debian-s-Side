@@ -15,9 +15,10 @@ def cli_main():
             number = url_entered.split(':')[1]
     else:
         number = args.num
-
+    print ("NO-GUI :",args.nogui)
     if (args.nogui):
-        print ("NOGUI")
+        from .dialercli_main import dialercli_main
+        dialercli_main(number)
     else:
         from .dialer_main import main
         try:
