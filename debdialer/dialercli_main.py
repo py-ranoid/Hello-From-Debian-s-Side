@@ -1,10 +1,26 @@
 from phonenumbers import parse,is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
-from .utils import get_default_code
-from .fetch_details import getCountryString,getTimezoneString,getCarrierString,formatNum
+from .utils import get_default_code,parse_vcard
+from .fetch_details import getCountryString,getTimezoneString,getCarrierString,formatNum,parse_file_for_nums
 
-def dialercli_main(number):
+LINE = "="*35
+def dialercli_num(number):
     getDetails(number)
+
+def dialercli_file(fpath):
+    if fpath.strip().endswith('.vcf'):
+        name, nums = parse_vcard(fpath)
+        print (LINE)
+        print ("    ",name,'\n','\t'+'\n\t'.join(nums))
+        print (LINE)
+    else:
+        country_code = get_default_code()
+        nums = parse_file_for_nums(fpath,country_code[0])
+        print (LINE)
+        print ('\t'+'\n\t'.join(nums))
+        print (LINE)
+
+
 
 
 def getDetails(number):
