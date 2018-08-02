@@ -31,6 +31,7 @@ def dialercli_num(number):
         print ("> Devices :",devices)
     else:
         print ("> No device found / KDE-Connect not installed .",devices)
+    print ("> Choose option from dmenu below ")
     choice = getDmenu(options)
     if choice == 'dial on android':
         if kdeconnect_insalled:
@@ -54,8 +55,18 @@ def dialercli_file(fpath):
     else:
         country_code = get_default_code()
         nums = parse_file_for_nums(fpath,country_code[0])
+        name = None
         print (LINE+'\n\t'+'\n\t'.join(nums)+'\n'+LINE)
-
+    if kdeconnect_insalled:
+        options = ['exit','send as contact to android']
+        choice = getDmenu(options)
+        print ("> Choose option from dmenu below ")
+        if choice == 'send as contact to android':
+            if name is None:
+                print ("> Enter Name for contact : ")
+                name = getDmenu()
+            dialer_add(nums[:3],name,devices[default_device_name])
+            print ("> Sent notification on Android Device: ",default_device_name)
 
 def getDetails(number):
     global loc_setting
