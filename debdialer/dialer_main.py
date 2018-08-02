@@ -5,12 +5,9 @@ from functools import partial
 from .design import Ui_Dialog
 from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
-from .fetch_details import get_timezone, get_carrier, formatNum, get_country,parse_file_for_nums
+from .fetch_details import getTimezoneString, getCarrierString, getCountryString, formatNum,parse_file_for_nums
 from .utils import get_default_code,parse_vcard
 from .kdeconnect_utils import check_kdeconnect,get_devices,dialer_send,dialer_add
-from pytz import timezone
-from datetime import datetime
-from pkg_resources import resource_filename
 
 class DialerApp(QtGui.QDialog, Ui_Dialog):
     def __init__(self, num):
@@ -176,33 +173,12 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.num_changed()
 
     def setCountry(self, pnum, valid):
-        """Accepts a phone number sets country details.
-        If number is invalid, sets country name to NA.
-        If country couldn't be determined by prefix, and IP or
-        DEBDIALER_COUNTRY variable was used, it mentions the same in brackets.
-        Also, sets country flag using country code.
+        country_string,flag_path = getCountryString(pnum, valid,self.loc_setting,20)
+        self.object_map['Location'].setText(country_string)
+        self.setFlag(flag_path)
 
-        Args :
-            pnum : PhoneNumber object
-            valid : bool variable. True when number is valid, else False.
-        """
-        default = {"name": "NA", 'code': "NULL"}
-        country = get_country(pnum.country_code) if valid else default
-        flag_sp = ' ' * 20
-        if valid:
-            locstring = flag_sp + country['name']
-            if self.loc_setting:
-                locstring += '('+self.loc_setting+')'
-        else:
-            locstring = flag_sp + "NA"
-        self.object_map['Location'].setText('Country :' + locstring)
-        self.setFlag(country['code'])
-
-    def setFlag(self, code):
-        """Uses a country code to generate flag path. Sets FlagBox to flag."""
-        FLAG_PATH = 'resources/flags/' + code + '-32.png'
-        FULL_FLAG_PATH = resource_filename(__name__,FLAG_PATH)
-        pixmap = QtGui.QPixmap(FULL_FLAG_PATH)
+    def setFlag(self, flagPath):
+        pixmap = QtGui.QPixmap(flagPath)
         pixmap = pixmap.scaledToHeight(21)
         self.object_map["FlagBox"].setPixmap(pixmap)
 
@@ -230,6 +206,8 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
             else:
                 print (e.args)
                 return
+
+
         validity = is_valid_number(x)
         self.setTimezone(x, validity)
         self.setCarrier(x, validity)
@@ -238,21 +216,12 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.setDialerNumber(formatted)
 
     def setCarrier(self, pnum, valid):
-        """Get carrier details of number and set in textbox."""
-        carr = get_carrier(pnum) if valid else 'NA'
-        self.object_map["Carrier"].setText('Carrier : ' + carr)
+        carr_string = getCarrierString(pnum,valid)[0]
+        self.object_map["Carrier"].setText(carr_string)
 
     def setTimezone(self, pnum, valid):
-        """If number is valid, display Timezone names and UTC offset.
-        Else, set Timezone to NA."""
-        if valid:
-            tz = get_timezone(pnum)[0] if valid else ''
-            utcdelta = timezone(tz).utcoffset(datetime.now())
-            utcoff = str(float(utcdelta.seconds) / 3600)
-            self.object_map["Timezone"].setText(
-                'Timezone : ' + tz + " | UTC+" + utcoff)
-        else:
-            self.object_map["Timezone"].setText('Timezone : NA')
+        tz_string = getTimezoneString(pnum,valid)[0]
+        self.object_map["Timezone"].setText(tz_string)
 
 
 def main(num):
