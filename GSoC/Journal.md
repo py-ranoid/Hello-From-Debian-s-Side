@@ -692,3 +692,36 @@ python3 -m pip install --user --upgrade twine
 	- Now : `Exec=debdialer -u %u`
 		- %u - A single URL
 		- Refer [this](https://developer.gnome.org/desktop-entry-spec/#exec-variables) for Exec variables
+
+# Experimenting with bash-based GUI
+## bashrun
+Opens a small window
+```
+wget http://downloads.sourceforge.net/bashrun/bashrun-0.16.1.tar.gz
+tar vxf bashrun-0.16.1.tar.gz
+cd bashrun-0.16.1/
+su -c './install.sh'
+```
+## dmenu
+### Installation
+```
+sudo apt install dmenu
+```
+### Usage
+```
+echo -e "OptionA\nOptionB\nOptionA" | dmenu
+```
+### Applying dmenu for `--no-gui` with debdialer
+```
+# dmenu command with arguments
+# -b  : Bottom bar menu
+# -fn : Font settings
+dmenu = ['dmenu','-b','-fn','"-xos4-terminus-medium-r-*-*-14-*"']
+
+# echo options joined by \n
+echo = ['echo','-e','\n'.join(options)]
+
+# Feed piped output from echo to dmenu
+ps = Popen(echo, stdout=PIPE)
+return check_output(dmenu, stdin=ps.stdout).decode().strip()
+```

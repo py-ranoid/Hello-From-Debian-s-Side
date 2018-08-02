@@ -2,10 +2,50 @@ from phonenumbers import parse,is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
 from .utils import get_default_code,parse_vcard
 from .fetch_details import getCountryString,getTimezoneString,getCarrierString,formatNum,parse_file_for_nums
-
+from .kdeconnect_utils import get_devices,check_kdeconnect,dialer_add,dialer_send
+from subprocess import check_output,Popen,PIPE
+import os
 LINE = "="*35
+kdeconnect_insalled = check_kdeconnect()
+if kdeconnect_insalled:
+    devices = get_devices()
+    if len(devices) == 0:
+        kdeconnect_insalled = False
+        devices = None
+    else:
+        default_device_name = list(devices.keys())[0]
+
+def getDmenu(options=[]):
+    dmenu = ['dmenu','-b','-fn','"-xos4-terminus-medium-r-*-*-14-*"']
+    echo = ['echo','-e','\n'.join(options)]
+    ps = Popen(echo, stdout=PIPE)
+    return check_output(dmenu, stdin=ps.stdout).decode().strip()
+
 def dialercli_num(number):
     getDetails(number)
+    options = ['exit','dial with sip']
+    if kdeconnect_insalled:
+        options+=['dial on android','send contact']
+    print(LINE)
+    if kdeconnect_insalled:
+        print ("> Devices :",devices)
+    else:
+        print ("> No device found / KDE-Connect not installed .",devices)
+    choice = getDmenu(options)
+    if choice == 'dial on android':
+        if kdeconnect_insalled:
+            dialer_send(number,devices[default_device_name])
+        print ("> Sent notification on Android Device: ",default_device_name)
+    elif choice == 'send contact':
+        if kdeconnect_insalled:
+            print ("> Enter Name for contact : ")
+            name = getDmenu()
+            dialer_add([number],name,devices[default_device_name])
+            print ("> Sent notification on Android Device: ",default_device_name)
+    elif choice == 'dial with sip':
+        pass
+    else:
+        print ("> Invalid input : ",choice)
 
 def dialercli_file(fpath):
     if fpath.strip().endswith('.vcf'):
@@ -19,8 +59,6 @@ def dialercli_file(fpath):
         print (LINE)
         print ('\t'+'\n\t'.join(nums))
         print (LINE)
-
-
 
 
 def getDetails(number):
