@@ -85,7 +85,7 @@ def getCountryString(pnum, valid,loc_setting,flag_len=0):
     else:
         locstring = flag_sp + "NA"
     flag = getFlagPath(country['code'])
-    return ['Country :' + locstring, flag]
+    return ['Country : ' + locstring, flag]
 
 
 def getDetails(number):

@@ -4,9 +4,7 @@ from .utils import get_default_code
 from .fetch_details import getCountryString,getTimezoneString,getCarrierString,formatNum
 
 def dialercli_main(number):
-    print ("===")
     getDetails(number)
-    print ("===")
 
 
 def getDetails(number):
@@ -29,7 +27,8 @@ def getDetails(number):
     all_parts = []
     all_parts += getTimezoneString(x, validity)
     all_parts += getCarrierString(x, validity)
-    all_parts += getCountryString(x, validity,loc_setting)
-    all_parts += ['Formatted :'+formatNum(x, 'inter')]
-    print (number,"\n================")
-    print ('\n'.join(all_parts))
+    country,flag = getCountryString(x, validity,loc_setting)
+    all_parts += [country,'Flag\t: '+flag]
+    all_parts += ['Formatted : '+formatNum(x, 'inter')]
+    print ("================\n",number,"\n================")
+    print (('\n'.join(all_parts)).replace(':','\t:'))
