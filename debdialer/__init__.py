@@ -20,6 +20,10 @@ def cli_main():
         url_entered = args.url.strip()
         if url_entered.startswith('tel:'):
             number = url_entered.split(':')[1]
+        if url_entered.startswith('sip:'):
+            from .utils import sipdial
+            sipdial(url_entered,sip = True)
+
     if args.num:
         number = args.num
     if (args.nogui):

@@ -1,6 +1,7 @@
 import os
 import json
 import vobject
+from configparser import ConfigParser
 from pkg_resources import resource_filename
 from urllib3 import PoolManager,exceptions
 
@@ -48,7 +49,8 @@ def get_default_code():
     """
     ip_result = check_ip_for_country_code()
     if ip_result is None:
-        default_country =  CONFIG.get('DEFAULT_COUNTRY', None)
+        try: default_country =  CONFIG.get('global','DEFAULT_COUNTRY')
+        except: default_country = None
         if default_country is None:
             return (None,None)
         else:
@@ -64,17 +66,29 @@ def parse_vcard(filepath):
     numbers = [x.value for x in vcard.tel_list]
     return name,numbers
 
-def load_config():
+def load_config_json():
     CONFIG_PATH = resource_filename(__name__,'config.json')
     with open(CONFIG_PATH) as config_file:
         config = json.load(config_file)
     return config
 
+def load_config():
+    CONFIG_PATH = '/etc/debdialer.conf'
+    config = ConfigParser()
+    try:
+        config.read(CONFIG_PATH)
+        return config
+    except:
+        print ("Configuration file not found at /etc/debdialer.conf")
+
 def sipdial(number,tel=False, sip = False):
     number = number.replace(" ","")
     if tel or sip:
         param = 'SIP_COMMAND_TEL' if tel else 'SIP_COMMAND_SIP'
-        command = CONFIG.get(param)
+        try : command = CONFIG.get('global',param)
+        except :
+            print ("Configuration file not found at /etc/debdialer.conf/Error with config")
+            return 'Config error'
         os.system(command % number)
         return command % number
 

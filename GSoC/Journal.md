@@ -725,3 +725,35 @@ echo = ['echo','-e','\n'.join(options)]
 ps = Popen(echo, stdout=PIPE)
 return check_output(dmenu, stdin=ps.stdout).decode().strip()
 ```
+
+# Configuration file
+## `.json` config file
+- Added `config.json` and using `load_config_json` to load the configuration
+```
+{
+  "DEFAULT_COUNTRY": "IN",
+  "SIP_COMMAND_TEL":"ekiga -c sip:%s@amsterdam.voip.ms",
+  "SIP_COMMAND_SIP":"ekiga -c sip:%s"
+}
+```
+- **Caveat**
+	- In order to edit configuration, user needs to edit json file
+ 	- Path of json isn't certain (post installation)
+
+## `.conf` config file
+- Added `debdialer.conf`, which gets installed in `/etc/`
+```
+[global]
+DEFAULT_COUNTRY = IN
+SIP_COMMAND_TEL = ekiga -c sip:%%s@amsterdam.voip.ms
+SIP_COMMAND_SIP = ekiga -c %%s
+```
+- Hence definite path of config file : `/etc/debdialer.conf`
+- Using `configparser.ConfigParser` to load config file
+```
+from configparser import ConfigParser
+config = ConfigParser()
+config.read('/etc/debdialer.conf')
+config.get('global','DEFAULT_COUNTRY')
+# IN
+```
