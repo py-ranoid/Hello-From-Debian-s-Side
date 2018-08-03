@@ -729,6 +729,7 @@ return check_output(dmenu, stdin=ps.stdout).decode().strip()
 # Configuration file
 ## `.json` config file
 - Added `config.json` and using `load_config_json` to load the configuration
+
 ```
 {
   "DEFAULT_COUNTRY": "IN",
@@ -742,6 +743,7 @@ return check_output(dmenu, stdin=ps.stdout).decode().strip()
 
 ## `.conf` config file
 - Added `debdialer.conf`, which gets installed in `/etc/`
+
 ```
 [global]
 DEFAULT_COUNTRY = IN
@@ -750,6 +752,7 @@ SIP_COMMAND_SIP = ekiga -c %%s
 ```
 - Hence definite path of config file : `/etc/debdialer.conf`
 - Using `configparser.ConfigParser` to load config file
+
 ```
 from configparser import ConfigParser
 config = ConfigParser()
