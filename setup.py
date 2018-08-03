@@ -42,7 +42,7 @@ with open('README.md') as readme_file:
     readme_contents = readme_file.read()
 
 setup(name='debdialer',
-      version='0.21',
+      version='0.22',
       description='Click-to-dial pop-up window.',
       long_description = readme_contents,
       long_description_content_type="text/markdown",
