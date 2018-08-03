@@ -26,8 +26,13 @@ def cli_main():
         from .dialercli_main import dialercli_num
         dialercli_num(number)
     else:
-        from .dialer_main import main
         try:
+            from .dialer_main import main
             main(number)
+        except ImportError as e:
+            if 'PyQt4' in e.message:
+                # If PyQt4, isn't installed, open in no-gui mode
+                from .dialercli_main import dialercli_num
+                dialercli_num(number)
         except KeyboardInterrupt:
             print ("Interrupt")

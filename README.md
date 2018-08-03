@@ -12,19 +12,23 @@ sudo update-desktop-database /usr/share/applications/
 ## Install from source
 ```
 # After cloning https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master
-# Single command
+# Single command (recommended)
 sudo python3 setup.py full-install
 ```
-### or
+### Other Install options
 ```
-# Installing Qt4
-sudo apt install python3-pyqt4
+# Install with Qt only
+sudo python3 setup.py gui-install
 
-# Installing with python3
-python3 setup.py install
+# Install with dmenu only
+sudo python3 setup.py nogui-install
 
-# Or installing with pip
+# Install with pip
 pip3 install .
+```
+### Optional Dependencies
+```
+sudo apt install python3-pyqt4 dmenu
 ```
 
 #### To test the MIME link
@@ -101,3 +105,5 @@ Download apk here : [tiny.cc/ddial-kdeconnect](tiny.cc/ddial-kdeconnect)
 <br/>
 #### Printing list of numbers
 <img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/OpenFile-2.png" width="400">
+## Automatic formatting of numbers and setting of details
+<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AutoDetails.gif" width="400">

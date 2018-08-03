@@ -2,16 +2,39 @@ from setuptools import setup
 import os
 from setuptools.command.install import install
 
+def install_dmenu():
+    print ("INSTALLING dmenu")
+    os.system('sudo apt install dmenu')
+
+def install_qt():
+    print ("INSTALLING python3-pyqt4")
+    os.system('sudo apt install python3-pyqt4')
+
+def update_mime():
+    print ("UPDATING DESKTOP DATABASE")
+    os.system('sudo update-desktop-database /usr/share/applications/')
+
 class InstallWithQt(install):
-    """Customized setuptools install command - prints a friendly greeting."""
+    """Install debdialer with PyQt only"""
     def run(self):
-        print ("INSTALLING python3-pyqt4")
-        os.system('sudo apt install python3-pyqt4')
+        install_qt()
         install.run(self)
-        os.system('sudo update-desktop-database /usr/share/applications/')
+
+class InstallWithQtDmenu(install):
+    """Install debdialer with PyQt and dmenu"""
+    def run(self):
+        install_qt()
+        install_dmenu()
+        install.run(self)
+
+class InstallWithDmenu(install):
+    """Install debdialer with Dmenu only"""
+    def run(self):
+        install_dmenu()
+        install.run(self)
 
 class NormalInstall(install):
-    """Customized setuptools install command - prints a friendly greeting."""
+    """Install debdialer only."""
     def run(self):
         install.run(self)
 
@@ -42,8 +65,10 @@ setup(name='debdialer',
       packages=['debdialer'],
       zip_safe=False,
       cmdclass={
-        'full-install': InstallWithQt,
+        'full-install': InstallWithQtDmenu,
         'install': NormalInstall,
+        'gui-install': InstallWithQt,
+        'nogui-install': InstallWithDmenu,
         },
     classifiers=(
         "License :: OSI Approved :: GNU Affero General Public License v3",
@@ -62,5 +87,4 @@ setup(name='debdialer',
         'Topic :: Utilities'
 
     )
-
-      )
+)
