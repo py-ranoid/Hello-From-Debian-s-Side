@@ -187,7 +187,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         If number couldn't be parsed because of missing country code,
             fetch default code using get_default_code()
             set loc_setting to 'IP' if country was determined by IP address
-            set loc_setting to 'ENV' if country was determined by env variable
+            set loc_setting to 'CFG' if country was determined by config file.
         Set timezone, carrier and country values.
         Format number as International Number and set it.
         """
@@ -200,7 +200,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
                 ccode,ip = get_default_code()
                 if ccode:
                     x = parse(number,ccode)
-                    self.loc_setting = 'IP' if ip else 'ENV'
+                    self.loc_setting = 'IP' if ip else 'CFG'
                 else:
                     return
             else:

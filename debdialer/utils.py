@@ -1,6 +1,7 @@
 import os
 import json
 import vobject
+from pkg_resources import resource_filename
 from urllib3 import PoolManager,exceptions
 
 def country_code_mapper(source='./resources/CountryCodes.json', destination='DialerCodes.json'):
@@ -31,30 +32,29 @@ def check_ip_for_country_code():
 
 
 def get_default_code():
-    """Used to fetch default country code if number isn't in E164 format.
-    To manually set the default country_code,
-        export DEBDIALER_COUNTRY='<2 letter code>'
-    For example,
-        export DEBDIALER_COUNTRY='US'
+    """
+    Used to fetch default country code if number isn't in E164 format.
 
-    If DEBDIALER_COUNTRY isn't present as an environment variable,
-        check user's public IP to predict user's current country.
+    Use public IP to predict user's current country.
         (may be misleading if user is using a VPN or
         trying to parse international numbers)
+        If this doesn't work,
+        DEFAULT_COUNTRY is obtained from config file.
 
     Returns 2 values:
         result : None, if default country code couldn't be found
         choice : 1, if default country was determined from IP address
-                 0, if default country was determined from environment variable.
+                 0, if default country was determined from config file.
     """
-    default_country = os.environ.get('DEBDIALER_COUNTRY', None)
-    if default_country is not None:
-        return (default_country,0)
+    ip_result = check_ip_for_country_code()
+    if ip_result is None:
+        default_country =  CONFIG.get('DEFAULT_COUNTRY', None)
+        if default_country is None:
+            return (None,None)
+        else:
+            return (default_country,0)
     else:
-        ip_result = check_ip_for_country_code()
-        if ip_result is not None:
-            return (ip_result,1)
-    return (None,None)
+        return (ip_result,1)
 
 def parse_vcard(filepath):
     with open(filepath,'r') as vcard_file:
@@ -63,3 +63,11 @@ def parse_vcard(filepath):
     name = vcard.getChildValue('fn')
     numbers = [x.value for x in vcard.tel_list]
     return name,numbers
+
+def load_config():
+    CONFIG_PATH = resource_filename(__name__,'config.json')
+    with open(CONFIG_PATH) as config_file:
+        config = json.load(config_file)
+    return config
+
+CONFIG = load_config()

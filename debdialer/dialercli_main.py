@@ -78,7 +78,7 @@ def getDetails(number):
             ccode, ip = get_default_code()
             if ccode:
                 x = parse(number, ccode)
-                loc_setting = 'IP' if ip else 'ENV'
+                loc_setting = 'IP' if ip else 'CFG'
             else:
                 return
         else:
