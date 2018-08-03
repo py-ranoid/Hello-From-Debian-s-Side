@@ -42,7 +42,7 @@ with open('README.md') as readme_file:
     readme_contents = readme_file.read()
 
 setup(name='debdialer',
-      version='0.20',
+      version='0.21',
       description='Click-to-dial pop-up window.',
       long_description = readme_contents,
       long_description_content_type="text/markdown",
@@ -50,7 +50,7 @@ setup(name='debdialer',
       author='Vishal Gupta',
       author_email='vishalg8897@gmail.com',
       license='GNU',
-      package_data={'debdialer': ['resources/DialerCodes.json','resources/flags/*']},
+      package_data={'debdialer': ['resources/DialerCodes.json','resources/flags/*','config.json']},
       include_package_data=True,
       install_requires=[
           'pytz',

@@ -1,10 +1,10 @@
 from phonenumbers import parse,is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
-from .utils import get_default_code,parse_vcard
+from .utils import get_default_code,parse_vcard,sipdial
 from .fetch_details import getCountryString,getTimezoneString,getCarrierString,formatNum,parse_file_for_nums
 from .kdeconnect_utils import get_devices,check_kdeconnect,dialer_add,dialer_send
 from subprocess import check_output,Popen,PIPE
-import os
+
 LINE = "="*35
 kdeconnect_insalled = check_kdeconnect()
 if kdeconnect_insalled:
@@ -44,7 +44,8 @@ def dialercli_num(number):
             dialer_add([number],name,devices[default_device_name])
             print ("> Sent notification on Android Device: ",default_device_name)
     elif choice == 'dial with sip':
-        pass
+        command = sipdial(number,tel=True)
+        print ("> Dialing with sip client.("+command+")")
     else:
         print ("> Invalid input : ",choice)
 

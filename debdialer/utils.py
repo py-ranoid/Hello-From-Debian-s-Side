@@ -70,4 +70,12 @@ def load_config():
         config = json.load(config_file)
     return config
 
+def sipdial(number,tel=False, sip = False):
+    number = number.replace(" ","")
+    if tel or sip:
+        param = 'SIP_COMMAND_TEL' if tel else 'SIP_COMMAND_SIP'
+        command = CONFIG.get(param)
+        os.system(command % number)
+        return command % number
+
 CONFIG = load_config()

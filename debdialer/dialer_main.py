@@ -6,8 +6,9 @@ from .design import Ui_Dialog
 from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
 from .fetch_details import getTimezoneString, getCarrierString, getCountryString, formatNum,parse_file_for_nums
-from .utils import get_default_code,parse_vcard
+from .utils import get_default_code,parse_vcard,sipdial
 from .kdeconnect_utils import check_kdeconnect,get_devices,dialer_send,dialer_add
+
 
 class DialerApp(QtGui.QDialog, Ui_Dialog):
     def __init__(self, num):
@@ -31,6 +32,7 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         self.object_map['Send2Android'].clicked.connect(self.kdeconnect_dial)
         self.object_map['ContactUpload'].clicked.connect(self.send_contact)
         self.object_map['VcardUpload'].clicked.connect(self.send_contact_file)
+        self.object_map['VoIPButton'].clicked.connect(self.call_with_sip)
 
         self.object_map['NumTextBox'].textChanged.connect(self.num_changed)
         self.object_map['NumTextBox'].moveCursor(QTextCursor.EndOfLine)
@@ -53,6 +55,11 @@ class DialerApp(QtGui.QDialog, Ui_Dialog):
         else:
             self.kdeconnect_devices = None
             self.disable_buttons(self.kdeconnect_buttons)
+
+    def call_with_sip(self):
+        number = self.getDialerNumber()
+        command = sipdial(number,tel=True)
+        print ("> "+command)
 
     def disable_buttons(self,button_names):
         for button_name in button_names:
