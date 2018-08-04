@@ -1,10 +1,10 @@
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/PrimaryDesk.png" align="center">
+<img src = "http://vishalgupta.me/debdialer/Images/PrimaryDesk.png" align="center">
 
 # Installation
 ## Install with pip3
 ```
 sudo pip3 install debdialer
-SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master
+SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/debdialer/raw/master
 sudo wget $SALSA_URL/Images/deblogo-128.png -O /usr/share/icons/hicolor/128x128/apps/deblogo-128.png -nv
 sudo wget $SALSA_URL/debdialer.desktop -O /usr/share/applications/debdialer.desktop -nv
 sudo wget $SALSA_URL/debdialer.conf -O /etc/debdialer.conf -nv
@@ -12,11 +12,11 @@ sudo update-desktop-database /usr/share/applications/
 ```
 ### Alternatively
 ```
-curl -L https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master/install.sh -s | bash
+curl -L https://salsa.debian.org/comfortablydumb-guest/debdialer/raw/master/install.sh -s | bash
 ```
 ## Install from source
 ```
-# After cloning https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master
+# After cloning https://salsa.debian.org/comfortablydumb-guest/debdialer/tree/master
 # Single command (recommended)
 sudo python3 setup.py full-install
 ```
@@ -72,43 +72,43 @@ export DEBDIALER_COUNTRY='IN'
 Download apk here : [tiny.cc/ddial-kdeconnect](tiny.cc/ddial-kdeconnect)
 <br/>
 ### Installing the apk
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-1.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-2.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-3.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-1.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-2.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-3.jpg" width="200">
 
 ### Setting up KDE-Connect
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-4.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-5.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/Setup-6.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-4.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-5.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-6.jpg" width="200">
 
 # Usage
 ## Adding contact using .vcf file (`Add vcard to Contacts`)
 #### Selecting vcf file on Debdialer
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContFileDesk-1.png" width="400">
+<img src = "http://vishalgupta.me/debdialer/Images/AddContFileDesk-1.png" width="400">
 
 #### Adding contact on Android Phone
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContFileApp-1.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContFileApp-2.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/AddContFileApp-1.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/AddContFileApp-2.jpg" width="200">
 
 ## Adding number in dialer as contact (`Add to Contacts`)
 #### Selecting vcf file on Debdialer
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContactDesk-1.png" width="400">
+<img src = "http://vishalgupta.me/debdialer/Images/AddContactDesk-1.png" width="400">
 
 #### Adding contact on Android Phone
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContactApp-1.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AddContactApp-2.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/AddContactApp-1.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/AddContactApp-2.jpg" width="200">
 
 ## Sending dialer number to Android phone (`DIAL ON ANDROID PHONE`)
 
 #### Notification on Android Phone
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/DialApp-1.jpg" width="200">
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/DialApp-2.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/DialApp-1.jpg" width="200">
+<img src = "http://vishalgupta.me/debdialer/Images/DialApp-2.jpg" width="200">
 
 ## Parsing numbers from file (`Open File`)
 #### Choosing File
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/OpenFile-1.png" width="400">
+<img src = "http://vishalgupta.me/debdialer/Images/OpenFile-1.png" width="400">
 <br/>
 #### Printing list of numbers
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/OpenFile-2.png" width="400">
+<img src = "http://vishalgupta.me/debdialer/Images/OpenFile-2.png" width="400">
 ## Automatic formatting of numbers and setting of details
-<img src = "http://vishalgupta.me/Hello-From-The-Debian-Side/Images/AutoDetails.gif" width="400">
+<img src = "http://vishalgupta.me/debdialer/Images/AutoDetails.gif" width="400">
