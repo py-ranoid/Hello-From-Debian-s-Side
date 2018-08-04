@@ -240,7 +240,7 @@ There were a problems involved in installing this but it eventually worked it.
 - Eventually decide to use PhoneNumberMatcher
 
 ## Using PhoneNumberMatcher
-- Created a function : [parse_file_for_nums](https://salsa.debian.org/comfortablydumb-guest/debdialer/blob/master/debdialer/fetch_details.py#L43)
+- Created a function : [parse_file_for_nums](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/blob/master/debdialer/fetch_details.py#L43)
 	- Accepts a file Path and country code (default code handled in Week 5)
 	- Reads the file
 	- Uses `PhoneNumberMatcher(text, country_code)` to parse file for phonenumbers
@@ -510,7 +510,7 @@ Formatted :+91 91761 19388
 # Adding Licenses
 
 - Added [**GNU Affero General Public License v3.0**](https://choosealicense.com/licenses/agpl-3.0/) to debdialer
-	<br> License : https://salsa.debian.org/comfortablydumb-guest/debdialer/blob/master/LICENSE
+	<br> License : https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/blob/master/LICENSE
 - Mentioned licenses of modules used in debdialer
 	- python-phonenumbers : Used it to parse phone numbers
 	- Country Codes : A Github Gist. Used to it get Country Code from Dialer Code
@@ -593,13 +593,13 @@ numbers = [x.value for x in vcard.tel_list]
 There are two approaches to sending a sending a contact.
 Both use `kdeconnect_utils.dialer_add` to create a contact on a specific device (`device_id`) under a given `name` with given `numbers` (which is a list, 1 <= length <= 3)
 
-### Sending number in Dialer (`Add to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/debdialer/tree/master#adding-number-in-dialer-as-contact-add-to-contacts))
+### Sending number in Dialer (`Add to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#adding-number-in-dialer-as-contact-add-to-contacts))
 - Read number in `NumTextBox`
 - Open a `QInputDialog` to get contact name
 - Return if user clicked on *Cancel*
 - If user clicked on *OK*, send number to phone with `kdeconnect_utils.dialer_add`
 
-### Sending numbers in a file as contact (`Add vcard to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/debdialer/tree/master#adding-contact-using-vcf-file-add-vcard-to-contacts))
+### Sending numbers in a file as contact (`Add vcard to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#adding-contact-using-vcf-file-add-vcard-to-contacts))
 - If file name ends with `.vcf` (ie. vcard file)
 	- Call `utils.parse_vcard` to fetch `name` and `numbers` from file
 	- Send number to phone with `kdeconnect_utils.dialer_add`
@@ -609,11 +609,11 @@ Both use `kdeconnect_utils.dialer_add` to create a contact on a specific device 
 	- Return if user clicked on *Cancel*
 	- If user clicked on *OK*, send number to phone with `kdeconnect_utils.dialer_add`
 
-## Sending number in Dialer to dial on Phone (`DIAL ON ANDROID PHONE`)([Screenshots](https://salsa.debian.org/comfortablydumb-guest/debdialer/tree/master#sending-dialer-number-to-android-phone-dial-on-android-phone))
+## Sending number in Dialer to dial on Phone (`DIAL ON ANDROID PHONE`)([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#sending-dialer-number-to-android-phone-dial-on-android-phone))
 - Read number in `NumTextBox`  using `getDialerNumber()`
 - Uses `kdeconnect_utils.dialer_send` to send the given `number` to a specific device (`device_id`)
 
-## Parse phone numbers in a File ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/debdialer/tree/master#parsing-numbers-from-file-open-file))
+## Parse phone numbers in a File ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#parsing-numbers-from-file-open-file))
 - Calls `print_file_nums`
 	- Open a dialog to choose a file
 	- Get contents of file and parse for phone numbers

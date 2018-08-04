@@ -4,7 +4,7 @@
 ## Install with pip3
 ```
 sudo pip3 install debdialer
-SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/debdialer/raw/master
+SALSA_URL=SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master
 sudo wget $SALSA_URL/Images/deblogo-128.png -O /usr/share/icons/hicolor/128x128/apps/deblogo-128.png -nv
 sudo wget $SALSA_URL/debdialer.desktop -O /usr/share/applications/debdialer.desktop -nv
 sudo wget $SALSA_URL/debdialer.conf -O /etc/debdialer.conf -nv
@@ -12,11 +12,11 @@ sudo update-desktop-database /usr/share/applications/
 ```
 ### Alternatively
 ```
-curl -L https://salsa.debian.org/comfortablydumb-guest/debdialer/raw/master/install.sh -s | bash
+curl -L https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master/install.sh -s | bash
 ```
 ## Install from source
 ```
-# After cloning https://salsa.debian.org/comfortablydumb-guest/debdialer/tree/master
+# After cloning https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master
 # Single command (recommended)
 sudo python3 setup.py full-install
 ```
