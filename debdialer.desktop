@@ -1,6 +1,6 @@
 [Desktop Entry]
-Version=0.22
-Name=Pop-Up Dialer
+Version=0.26
+Name=DebDialer
 Comment=An application to handle tel: URIs and dial numbers
 Exec=debdialer -u %u
 Icon=/usr/share/icons/hicolor/128x128/apps/deblogo-128.png

@@ -1,7 +1,12 @@
 <img src = "http://vishalgupta.me/debdialer/Images/PrimaryDesk.png" align="center">
 
 # Installation
-## Install with pip3
+## Install with shell script
+```
+sudo apt install python3-pyqt4 dmenu kdeconnect indicator-kdeconnect
+curl -L https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master/install.sh -s | bash
+```
+### Alternatively, install with pip3
 ```
 sudo pip3 install debdialer
 SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master
@@ -10,10 +15,7 @@ sudo wget $SALSA_URL/debdialer.desktop -O /usr/share/applications/debdialer.desk
 sudo wget $SALSA_URL/debdialer.conf -O /etc/debdialer.conf -nv
 sudo update-desktop-database /usr/share/applications/
 ```
-### Alternatively
-```
-curl -L https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master/install.sh -s | bash
-```
+
 ## Install from source
 ```
 git clone https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side.git

@@ -1,4 +1,4 @@
-Note : Find project scrum board [here](https://storm.debian.net/grain/bD3aJdnYLBWo5R3K6GWckn/b/sandstorm/libreboard)
+
 
 ---
 # Week 1
