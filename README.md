@@ -4,7 +4,7 @@
 ## Install with pip3
 ```
 sudo pip3 install debdialer
-SALSA_URL=SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master
+SALSA_URL=https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/raw/master
 sudo wget $SALSA_URL/Images/deblogo-128.png -O /usr/share/icons/hicolor/128x128/apps/deblogo-128.png -nv
 sudo wget $SALSA_URL/debdialer.desktop -O /usr/share/applications/debdialer.desktop -nv
 sudo wget $SALSA_URL/debdialer.conf -O /etc/debdialer.conf -nv
@@ -16,17 +16,16 @@ curl -L https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-sid
 ```
 ## Install from source
 ```
-# After cloning https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master
-# Single command (recommended)
-sudo python3 setup.py full-install
+git clone https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side.git
+sudo python3 setup.py full_install
 ```
 ### Other Install options
 ```
 # Install with Qt only
-sudo python3 setup.py gui-install
+sudo python3 setup.py gui_install
 
 # Install with dmenu only
-sudo python3 setup.py nogui-install
+sudo python3 setup.py nogui_install
 
 # Install with pip
 pip3 install .
@@ -77,6 +76,14 @@ Download apk here : [tiny.cc/ddial-kdeconnect](tiny.cc/ddial-kdeconnect)
 <img src = "http://vishalgupta.me/debdialer/Images/Setup-3.jpg" width="200">
 
 ### Setting up KDE-Connect
+- Install desktop application for kdeconnect
+```
+sudo apt install kdeconnect indicator-kdeconnect
+```
+- Clicking on **REQUEST PAIRING** in the android application will open a notification on your desktop application. Click on **Accept**.
+<img src = "http://vishalgupta.me/debdialer/Images/Setup-7.png" width="600">
+<br/>
+
 <img src = "http://vishalgupta.me/debdialer/Images/Setup-4.jpg" width="200">
 <img src = "http://vishalgupta.me/debdialer/Images/Setup-5.jpg" width="200">
 <img src = "http://vishalgupta.me/debdialer/Images/Setup-6.jpg" width="200">

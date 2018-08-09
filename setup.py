@@ -10,6 +10,11 @@ def install_qt():
     print ("INSTALLING python3-pyqt4")
     os.system('sudo apt install python3-pyqt4')
 
+def install_kdeconnect():
+    print ("INSTALLING kdeconnect")
+    os.system('sudo apt install kdeconnect indicator-kdeconnect')
+
+
 def update_mime():
     print ("UPDATING DESKTOP DATABASE")
     os.system('sudo update-desktop-database /usr/share/applications/')
@@ -25,6 +30,7 @@ class InstallWithQtDmenu(install):
     def run(self):
         install_qt()
         install_dmenu()
+        install_kdeconnect()
         install.run(self)
 
 class InstallWithDmenu(install):
@@ -66,10 +72,10 @@ setup(name='debdialer',
       packages=['debdialer'],
       zip_safe=False,
       cmdclass={
-        'full-install': InstallWithQtDmenu,
+        'full_install': InstallWithQtDmenu,
         'install': NormalInstall,
-        'gui-install': InstallWithQt,
-        'nogui-install': InstallWithDmenu,
+        'gui_install': InstallWithQt,
+        'nogui_install': InstallWithDmenu,
         },
     classifiers=(
         "License :: OSI Approved :: GNU Affero General Public License v3",
