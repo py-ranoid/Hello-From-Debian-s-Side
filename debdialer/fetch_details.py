@@ -125,8 +125,9 @@ def getTimezoneString(pnum, valid):
     if valid:
         tz = get_timezone(pnum)[0] if valid else ''
         utcdelta = pytz_timezone(tz).utcoffset(datetime.now())
-        utcoff = str(float(utcdelta.seconds) / 3600)
-        return ['Timezone : ' + tz + " | UTC+" + utcoff]
+        utcoff = (float(utcdelta.seconds) / 3600)+utcdelta.days*24
+        utcoff_string = '+'+str(utcoff) if utcoff >=0 else str(utcoff)
+        return ['Timezone : ' + tz + " | UTC" + str(utcoff_string)]
     else:
         return ['Timezone : NA']
 
