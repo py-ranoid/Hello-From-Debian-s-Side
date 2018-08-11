@@ -12,7 +12,7 @@
   - Email : [vishalg8897@gmail.com](mailto:vishalg8897@gmail.com)
 
 ## Workflow and purpose
-<img src = "http://vishalgupta.me/debdialer/Images/workflow.png" align="center">
+<img src = "http://vishalgupta.me/debdialer/Images/workflow.png" align="middle" width="400"></br>
 There are multiple applications and options to handle phone-numbers. Hence, everything on the left and on the right already exist. However the MIME action (clicking a number in a browser) doesn't "know" if the user wants to call the number or save it for later. The popup will let the user make that choice. The aim is to develop the component in the middle so that it can interact with each of the things on the right. The user can
 configure the options the actions further at `/etc/debdialer.conf`
 
