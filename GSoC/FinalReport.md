@@ -12,7 +12,8 @@
   - Email : [vishalg8897@gmail.com](mailto:vishalg8897@gmail.com)
 
 ## Workflow and purpose
-<img src = "http://vishalgupta.me/debdialer/Images/workflow.png" align="middle" width="400"></br>
+<img src = "http://vishalgupta.me/debdialer/Images/workflow.png" align="middle" width="500">
+
 There are multiple applications and options to handle phone-numbers. Hence, everything on the left and on the right already exist. However the MIME action (clicking a number in a browser) doesn't "know" if the user wants to call the number or save it for later. The popup will let the user make that choice. The aim is to develop the component in the middle so that it can interact with each of the things on the right. The user can
 configure the options the actions further at `/etc/debdialer.conf`
 
@@ -108,10 +109,10 @@ curl -L https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-sid
 		- Execution
 	- Connecting GUI buttons to added features
 		- Adding Contacts to Phone
-			- Sending number in Dialer (`Add to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master-adding-number-in-dialer-as-contact-add-to-contacts))
-			- Sending numbers in a file as contact (`Add vcard to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master-adding-contact-using-vcf-file-add-vcard-to-contacts))
-		- Sending number in Dialer to dial on Phone (`DIAL ON ANDROID PHONE`)([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master-sending-dialer-number-to-android-phone-dial-on-android-phone))
-		- Parse phone numbers in a File ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master-parsing-numbers-from-file-open-file))
+			- Sending number in Dialer (`Add to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#adding-number-in-dialer-as-contact-add-to-contacts))
+			- Sending numbers in a file as contact (`Add vcard to Contacts`) ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#adding-contact-using-vcf-file-add-vcard-to-contacts))
+		- Sending number in Dialer to dial on Phone (`DIAL ON ANDROID PHONE`)([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#sending-dialer-number-to-android-phone-dial-on-android-phone))
+		- Parse phone numbers in a File ([Screenshots](https://salsa.debian.org/comfortablydumb-guest/Hello-from-the-Debian-side/tree/master#parsing-numbers-from-file-open-file))
 	- Publishing `debdialer`
 		- Setting up your account on PyPi
 		- Uploading your package
